@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TV Portal - cartoon.tyfsadik.org</title>
+    <meta name="description" content="Live TV streams: Cartoon Network, Disney, Fox, AMC, Nicktoons, and more.">
+    <meta name="theme-color" content="#070707">
+    
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://cartoon.tyfsadik.org">
+    <meta property="og:title" content="TV Portal">
+    <meta property="og:description" content="13 live channels. Personal embed wrapper.">
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='0' fill='%23ff6b00'/><rect x='20' y='35' width='60' height='30' fill='%23000'/><rect x='25' y='40' width='15' height='20' fill='%23ff6b00'/><rect x='45' y='40' width='15' height='20' fill='%23ff6b00'/><rect x='65' y='40' width='10' height='20' fill='%23ff6b00'/></svg>">
+
+    <style>
+        @font-face {
+            font-family: 'system';
+            src: local(-apple-system), local(BlinkMacSystemFont), local('Segoe UI'), local(Roboto), local('Helvetica Neue');
+        }
+
+        :root {
+            --bg: #070707;
+            --surface: #0f0f0f;
+            --surface-raised: #141414;
+            --border: #1a1a1a;
+            --border-active: #2a2a2a;
+            --accent: #e85d04;
+            --accent-dim: #c24e03;
+            --text: #f0f0f0;
+            --text-muted: #888;
+            --text-dim: #555;
+            --danger: #d00000;
+            --success: #38b000;
+            --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            --radius-sm: 4px;
+            --radius-md: 6px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html, body {
+            height: 100%;
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font);
+            font-size: 14px;
+            line-height: 1.5;
+            overflow: hidden;
+        }
+
+        /* Layout */
+        .app {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            grid-template-rows: 48px 1fr;
+            grid-template-areas:
+                "header header"
+                "sidebar main";
+            height: 100vh;
+            width: 100vw;
+        }
+
+        /* Header */
+        .header {
+            grid-area: header;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            z-index: 10;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 15px;
+            letter-spacing: -0.3px;
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        .brand-mark {
+            width: 22px;
+            height: 22px;
+            background: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 800;
+            color: #000;
+        }
+
+        .header-meta {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .badge {
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-dim);
+            padding: 3px 8px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+        }
+
+        .live-pill {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--danger);
+        }
+
+        .live-pill::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--danger);
+            border-radius: 50%;
+            animation: blink 2s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* Sidebar */
+        .sidebar {
+            grid-area: sidebar;
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-header {
+            padding: 14px 16px 8px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--text-dim);
+        }
+
+        .channel-list {
+            list-style: none;
+            padding: 0 8px 12px;
+        }
+
+        .channel-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 12px;
+            margin-bottom: 2px;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.15s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .channel-item:hover {
+            background: var(--surface-raised);
+        }
+
+        .channel-item.active {
+            background: rgba(232, 93, 4, 0.08);
+            border-left-color: var(--accent);
+        }
+
+        .channel-item.active .channel-name {
+            color: var(--text);
+        }
+
+        .channel-num {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-dim);
+            width: 22px;
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .channel-item.active .channel-num {
+            color: var(--accent);
+        }
+
+        .channel-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .channel-name {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .channel-tag {
+            font-size: 9px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-dim);
+            margin-top: 1px;
+        }
+
+        .channel-item.active .channel-tag {
+            color: var(--accent-dim);
+        }
+
+        /* Main */
+        .main {
+            grid-area: main;
+            display: flex;
+            flex-direction: column;
+            background: var(--bg);
+            position: relative;
+        }
+
+        .player-stage {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            gap: 16px;
+            min-height: 0;
+        }
+
+        .player-card {
+            flex: 1;
+            background: #000;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            box-shadow: 0 0 40px rgba(0,0,0,0.6);
+        }
+
+        .player-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            gap: 12px;
+        }
+
+        .toolbar-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .toolbar-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .toolbar-sub {
+            font-size: 11px;
+            color: var(--text-dim);
+        }
+
+        .aspect-wrap {
+            flex: 1;
+            position: relative;
+            background: #000;
+            min-height: 0;
+        }
+
+        .aspect-wrap iframe {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .player-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 16px;
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            font-size: 11px;
+            color: var(--text-dim);
+        }
+
+        .status-line {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--success);
+            border-radius: 50%;
+        }
+
+        /* Empty state */
+        .empty-state {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            color: var(--text-dim);
+        }
+
+        .empty-state svg {
+            width: 48px;
+            height: 48px;
+            stroke: var(--border-active);
+        }
+
+        .empty-state p {
+            font-size: 13px;
+        }
+
+        /* Scrollbar */
+        .sidebar::-webkit-scrollbar { width: 5px; }
+        .sidebar::-webkit-scrollbar-track { background: transparent; }
+        .sidebar::-webkit-scrollbar-thumb { background: #222; border-radius: 3px; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .app {
+                grid-template-columns: 1fr;
+                grid-template-rows: 48px auto 1fr;
+                grid-template-areas:
+                    "header"
+                    "sidebar"
+                    "main";
+            }
+            .sidebar {
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+                max-height: 180px;
+                flex-direction: row;
+                overflow-x: auto;
+                overflow-y: hidden;
+            }
+            .sidebar-header { display: none; }
+            .channel-list {
+                display: flex;
+                gap: 4px;
+                padding: 8px;
+                flex-wrap: nowrap;
+            }
+            .channel-item {
+                flex-direction: column;
+                min-width: 90px;
+                padding: 10px;
+                border-left: none;
+                border-bottom: 3px solid transparent;
+                text-align: center;
+            }
+            .channel-item.active {
+                border-bottom-color: var(--accent);
+                border-left-color: transparent;
+            }
+            .channel-num { width: auto; text-align: center; }
+            .channel-info { text-align: center; }
+            .player-stage { padding: 12px; }
+        }
+
+        @media (max-width: 480px) {
+            .header { padding: 0 12px; }
+            .brand span { display: none; }
+            .toolbar-sub { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <header class="header">
+            <a href="/" class="brand">
+                <div class="brand-mark">TV</div>
+                <span>Portal</span>
+            </a>
+            <div class="header-meta">
+                <div class="live-pill">Live</div>
+                <div class="badge">13 Channels</div>
+            </div>
+        </header>
+
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">Channels</div>
+            <ul class="channel-list" id="channelList"></ul>
+        </aside>
+
+        <main class="main">
+            <div class="player-stage">
+                <div class="player-card">
+                    <div class="player-toolbar">
+                        <div class="toolbar-left">
+                            <div class="live-pill" id="toolbarLive">Live</div>
+                            <div>
+                                <div class="toolbar-title" id="toolbarTitle">Select a channel</div>
+                                <div class="toolbar-sub" id="toolbarSub">Choose from the sidebar to begin streaming</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="aspect-wrap" id="playerWrap">
+                        <div class="empty-state" id="emptyState">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <rect x="2" y="7" width="20" height="10" rx="1"/>
+                                <path d="M10 11l2 2 4-4"/>
+                            </svg>
+                            <p>Select a channel to start watching</p>
+                        </div>
+                        <iframe id="playerFrame" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen title="Live Stream"></iframe>
+                    </div>
+                    <div class="player-footer">
+                        <div class="status-line">
+                            <div class="status-dot"></div>
+                            <span id="footerStatus">Ready</span>
+                        </div>
+                        <span>Double-click video for fullscreen</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const channels = [
+            { key: 'cn', num: '01', name: 'Cartoon Network', slug: 'cartoonnetwork-usa', tag: 'Animation' },
+            { key: 'disney', num: '02', name: 'Disney Channel', slug: 'disneychannel-usa', tag: 'Family' },
+            { key: 'disneyjr', num: '03', name: 'Disney Junior', slug: 'disneyjunior-usa', tag: 'Preschool' },
+            { key: 'disneyxd', num: '04', name: 'Disney XD', slug: 'disneyxd-usa', tag: 'Action' },
+            { key: 'nicktoons', num: '05', name: 'Nicktoons', slug: 'nicktoons-usa', tag: 'Animation' },
+            { key: 'fox', num: '06', name: 'Fox', slug: 'fox-usa', tag: 'Broadcast' },
+            { key: 'foxsports', num: '07', name: 'Fox Sports 501', slug: 'fox-sports-501', tag: 'Sports' },
+            { key: 'amc', num: '08', name: 'AMC', slug: 'amc-usa', tag: 'Movies' },
+            { key: 'ae', num: '09', name: 'A&E', slug: 'ae-usa', tag: 'Reality' },
+            { key: 'accn', num: '10', name: 'ACCN', slug: 'accn-usa', tag: 'College Sports' },
+            { key: 'dazn1', num: '11', name: 'DAZN 1', slug: 'dazn1-usa', tag: 'Combat Sports' },
+            { key: 'animal', num: '12', name: 'Animal Planet', slug: 'animalplanet-usa', tag: 'Nature' },
+            { key: 'axs', num: '13', name: 'AXS TV', slug: 'axs-usa', tag: 'Music' }
+        ];
+
+        const listEl = document.getElementById('channelList');
+        const playerFrame = document.getElementById('playerFrame');
+        const emptyState = document.getElementById('emptyState');
+        const toolbarTitle = document.getElementById('toolbarTitle');
+        const toolbarSub = document.getElementById('toolbarSub');
+        const footerStatus = document.getElementById('footerStatus');
+
+        let activeKey = null;
+
+        function renderChannels() {
+            channels.forEach(ch => {
+                const li = document.createElement('li');
+                li.className = 'channel-item';
+                li.dataset.key = ch.key;
+                li.innerHTML = `
+                    <div class="channel-num">${ch.num}</div>
+                    <div class="channel-info">
+                        <div class="channel-name">${ch.name}</div>
+                        <div class="channel-tag">${ch.tag}</div>
+                    </div>
+                `;
+                li.addEventListener('click', () => loadChannel(ch.key));
+                listEl.appendChild(li);
+            });
+        }
+
+        function loadChannel(key) {
+            const ch = channels.find(c => c.key === key);
+            if (!ch || activeKey === key) return;
+            activeKey = key;
+
+            document.querySelectorAll('.channel-item').forEach(el => {
+                el.classList.toggle('active', el.dataset.key === key);
+            });
+
+            emptyState.style.display = 'none';
+            playerFrame.style.display = 'block';
+            playerFrame.src = `https://ritzembeds.pages.dev/embed/${ch.slug}`;
+
+            toolbarTitle.textContent = ch.name;
+            toolbarSub.textContent = `${ch.tag} - Channel ${ch.num}`;
+            footerStatus.textContent = `Streaming ${ch.name}`;
+        }
+
+        renderChannels();
+        loadChannel('cn');
+    </script>
+</body>
+</html>
