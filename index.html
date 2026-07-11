@@ -6,12 +6,12 @@
     <title>TV Portal - tv.tyfsadik.org</title>
     <meta name="description" content="Live TV streams: Cartoon Network, Disney, Fox, TSN, BeIN Sports, MTV, and more.">
     <meta name="theme-color" content="#070707">
-    
+
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://tv.tyfsadik.org">
     <meta property="og:title" content="TV Portal">
     <meta property="og:description" content="23 live channels. Personal embed wrapper.">
-    
+
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23e85d04'/><rect x='22' y='32' width='56' height='36' fill='%23000'/><rect x='28' y='38' width='14' height='24' fill='%23e85d04'/><rect x='46' y='38' width='14' height='24' fill='%23e85d04'/><rect x='64' y='38' width='10' height='24' fill='%23e85d04'/></svg>">
 
     <style>
@@ -387,6 +387,7 @@
             .toolbar-sub { display: none; }
         }
     </style>
+<base target="_blank">
 </head>
 <body>
     <div class="app">
@@ -397,7 +398,7 @@
             </a>
             <div class="header-meta">
                 <div class="live-pill">Live</div>
-                <div class="badge">23 Channels</div>
+                <div class="badge" id="channelBadge">23 Channels</div>
             </div>
         </header>
 
@@ -464,7 +465,8 @@
             { key: 'mtv', num: '20', name: 'MTV', slug: 'mtv-usa', tag: 'Music' },
             { key: 'twc', num: '21', name: 'Weather Channel', slug: 'twc-usa', tag: 'Weather' },
             { key: 'tnt', num: '22', name: 'TNT', slug: 'tnt-usa', tag: 'Drama' },
-            { key: 'caze', num: '23', name: 'Caze TV', slug: 'cazetv-br', tag: 'Brazil' }
+            { key: 'caze', num: '23', name: 'Caze TV', slug: 'cazetv-br', tag: 'Brazil' },
+            { key: 'thomas247', num: '24', name: 'Thomas 24/7', slug: 'thomas247-vip', tag: 'VIP' }
         ];
 
         const listEl = document.getElementById('channelList');
@@ -473,8 +475,12 @@
         const toolbarTitle = document.getElementById('toolbarTitle');
         const toolbarSub = document.getElementById('toolbarSub');
         const footerStatus = document.getElementById('footerStatus');
+        const channelBadge = document.getElementById('channelBadge');
 
         let activeKey = null;
+
+        // Update channel count badge
+        channelBadge.textContent = channels.length + ' Channels';
 
         function renderChannels() {
             channels.forEach(ch => {
