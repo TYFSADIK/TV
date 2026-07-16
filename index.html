@@ -6,11 +6,12 @@
     <title>TV Portal - tv.tyfsadik.org</title>
     <meta name="description" content="Live TV streams: Cartoon Network, Disney, Fox, TSN, BeIN Sports, MTV, and more.">
     <meta name="theme-color" content="#070707">
+    <meta name="color-scheme" content="dark">
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://tv.tyfsadik.org">
     <meta property="og:title" content="TV Portal">
-    <meta property="og:description" content="23 live channels. Personal embed wrapper.">
+    <meta property="og:description" content="24 live channels. Personal embed wrapper.">
 
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23e85d04'/><rect x='22' y='32' width='56' height='36' fill='%23000'/><rect x='28' y='38' width='14' height='24' fill='%23e85d04'/><rect x='46' y='38' width='14' height='24' fill='%23e85d04'/><rect x='64' y='38' width='10' height='24' fill='%23e85d04'/></svg>">
 
@@ -35,6 +36,8 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
+        [hidden] { display: none !important; }
+
         html, body {
             height: 100%;
             background: var(--bg);
@@ -53,6 +56,7 @@
                 "header header"
                 "sidebar main";
             height: 100vh;
+            height: 100dvh;
             width: 100vw;
         }
 
@@ -76,6 +80,12 @@
             letter-spacing: -0.3px;
             color: var(--text);
             text-decoration: none;
+        }
+
+        .brand:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+            border-radius: var(--radius-sm);
         }
 
         .brand-mark {
@@ -163,12 +173,17 @@
             margin-bottom: 2px;
             border-radius: var(--radius-md);
             cursor: pointer;
-            transition: all 0.15s ease;
+            transition: background 0.15s ease, border-color 0.15s ease;
             border-left: 3px solid transparent;
         }
 
         .channel-item:hover {
             background: var(--surface-raised);
+        }
+
+        .channel-item:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: -2px;
         }
 
         .channel-item.active {
@@ -226,6 +241,7 @@
             flex-direction: column;
             background: var(--bg);
             position: relative;
+            min-width: 0;
         }
 
         .player-stage {
@@ -249,6 +265,11 @@
             box-shadow: 0 0 40px rgba(0,0,0,0.6);
         }
 
+        .player-card:fullscreen {
+            border: none;
+            border-radius: 0;
+        }
+
         .player-toolbar {
             display: flex;
             align-items: center;
@@ -263,17 +284,71 @@
             display: flex;
             align-items: center;
             gap: 12px;
+            min-width: 0;
         }
 
         .toolbar-title {
             font-size: 14px;
             font-weight: 600;
             color: var(--text);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .toolbar-sub {
             font-size: 11px;
             color: var(--text-dim);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .toolbar-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .tool-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+        }
+
+        .tool-btn:hover {
+            color: var(--text);
+            border-color: var(--border-active);
+            background: var(--surface-raised);
+        }
+
+        .tool-btn:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 1px;
+        }
+
+        .tool-btn:disabled {
+            opacity: 0.4;
+            cursor: default;
+        }
+
+        .tool-btn svg {
+            width: 16px;
+            height: 16px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
         }
 
         .aspect-wrap {
@@ -295,6 +370,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            gap: 12px;
             padding: 10px 16px;
             background: var(--surface);
             border-top: 1px solid var(--border);
@@ -306,13 +382,26 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            min-width: 0;
+        }
+
+        .status-line span {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .status-dot {
             width: 6px;
             height: 6px;
+            flex-shrink: 0;
             background: var(--success);
             border-radius: 50%;
+        }
+
+        .status-dot.loading {
+            background: var(--accent);
+            animation: blink 1.2s ease-in-out infinite;
         }
 
         .empty-state {
@@ -336,9 +425,15 @@
             font-size: 13px;
         }
 
-        .sidebar::-webkit-scrollbar { width: 5px; }
+        .sidebar::-webkit-scrollbar { width: 5px; height: 5px; }
         .sidebar::-webkit-scrollbar-track { background: transparent; }
         .sidebar::-webkit-scrollbar-thumb { background: #222; border-radius: 3px; }
+
+        @media (prefers-reduced-motion: reduce) {
+            .live-pill::before,
+            .status-dot.loading { animation: none; }
+            .channel-item, .tool-btn { transition: none; }
+        }
 
         @media (max-width: 768px) {
             .app {
@@ -385,9 +480,9 @@
             .header { padding: 0 12px; }
             .brand span { display: none; }
             .toolbar-sub { display: none; }
+            #footerHint { display: none; }
         }
     </style>
-<base target="_blank">
 </head>
 <body>
     <div class="app">
@@ -398,7 +493,7 @@
             </a>
             <div class="header-meta">
                 <div class="live-pill">Live</div>
-                <div class="badge" id="channelBadge">23 Channels</div>
+                <div class="badge" id="channelBadge">24 Channels</div>
             </div>
         </header>
 
@@ -409,14 +504,30 @@
 
         <main class="main">
             <div class="player-stage">
-                <div class="player-card">
+                <div class="player-card" id="playerCard">
                     <div class="player-toolbar">
                         <div class="toolbar-left">
-                            <div class="live-pill" id="toolbarLive">Live</div>
+                            <div class="live-pill">Live</div>
                             <div>
                                 <div class="toolbar-title" id="toolbarTitle">Select a channel</div>
                                 <div class="toolbar-sub" id="toolbarSub">Choose from the sidebar to begin streaming</div>
                             </div>
+                        </div>
+                        <div class="toolbar-right">
+                            <button class="tool-btn" id="reloadBtn" title="Reload stream (R)" aria-label="Reload stream" disabled>
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M21 12a9 9 0 1 1-2.64-6.36"/>
+                                    <polyline points="21 3 21 9 15 9"/>
+                                </svg>
+                            </button>
+                            <button class="tool-btn" id="fullscreenBtn" title="Fullscreen (F)" aria-label="Toggle fullscreen" aria-pressed="false" disabled>
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M8 3H5a2 2 0 0 0-2 2v3"/>
+                                    <path d="M16 3h3a2 2 0 0 1 2 2v3"/>
+                                    <path d="M8 21H5a2 2 0 0 1-2-2v-3"/>
+                                    <path d="M16 21h3a2 2 0 0 0 2-2v-3"/>
+                                </svg>
+                            </button>
                         </div>
                     </div>
                     <div class="aspect-wrap" id="playerWrap">
@@ -427,14 +538,14 @@
                             </svg>
                             <p>Select a channel to start watching</p>
                         </div>
-                        <iframe id="playerFrame" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen title="Live Stream"></iframe>
+                        <iframe id="playerFrame" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen title="Live Stream" hidden></iframe>
                     </div>
                     <div class="player-footer">
                         <div class="status-line">
-                            <div class="status-dot"></div>
+                            <div class="status-dot" id="statusDot"></div>
                             <span id="footerStatus">Ready</span>
                         </div>
-                        <span>Double-click video for fullscreen</span>
+                        <span id="footerHint">F fullscreen - R reload - 1-9 channels</span>
                     </div>
                 </div>
             </div>
@@ -469,34 +580,70 @@
             { key: 'thomas247', num: '24', name: 'Thomas 24/7', slug: 'thomas247-vip', tag: 'VIP' }
         ];
 
+        const EMBED_BASE = 'https://ritzembeds.pages.dev/embed/';
+        const LOAD_TIMEOUT = 12000;
+
         const listEl = document.getElementById('channelList');
         const playerFrame = document.getElementById('playerFrame');
+        const playerCard = document.getElementById('playerCard');
         const emptyState = document.getElementById('emptyState');
         const toolbarTitle = document.getElementById('toolbarTitle');
         const toolbarSub = document.getElementById('toolbarSub');
         const footerStatus = document.getElementById('footerStatus');
+        const statusDot = document.getElementById('statusDot');
         const channelBadge = document.getElementById('channelBadge');
+        const reloadBtn = document.getElementById('reloadBtn');
+        const fullscreenBtn = document.getElementById('fullscreenBtn');
 
         let activeKey = null;
+        let loadTimer = null;
 
-        // Update channel count badge
         channelBadge.textContent = channels.length + ' Channels';
 
         function renderChannels() {
+            const frag = document.createDocumentFragment();
             channels.forEach(ch => {
                 const li = document.createElement('li');
                 li.className = 'channel-item';
                 li.dataset.key = ch.key;
-                li.innerHTML = `
-                    <div class="channel-num">${ch.num}</div>
-                    <div class="channel-info">
-                        <div class="channel-name">${ch.name}</div>
-                        <div class="channel-tag">${ch.tag}</div>
-                    </div>
-                `;
+                li.tabIndex = 0;
+                li.setAttribute('role', 'button');
+                li.setAttribute('aria-pressed', 'false');
+
+                const num = document.createElement('div');
+                num.className = 'channel-num';
+                num.textContent = ch.num;
+
+                const info = document.createElement('div');
+                info.className = 'channel-info';
+                const name = document.createElement('div');
+                name.className = 'channel-name';
+                name.textContent = ch.name;
+                const tag = document.createElement('div');
+                tag.className = 'channel-tag';
+                tag.textContent = ch.tag;
+                info.append(name, tag);
+
+                li.append(num, info);
                 li.addEventListener('click', () => loadChannel(ch.key));
-                listEl.appendChild(li);
+                li.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        loadChannel(ch.key);
+                    }
+                });
+                frag.appendChild(li);
             });
+            listEl.appendChild(frag);
+        }
+
+        function setLoading(ch) {
+            clearTimeout(loadTimer);
+            statusDot.classList.add('loading');
+            footerStatus.textContent = 'Loading ' + ch.name + '...';
+            loadTimer = setTimeout(() => {
+                footerStatus.textContent = 'Still loading ' + ch.name + '... stream may be blocked or offline';
+            }, LOAD_TIMEOUT);
         }
 
         function loadChannel(key) {
@@ -505,20 +652,110 @@
             activeKey = key;
 
             document.querySelectorAll('.channel-item').forEach(el => {
-                el.classList.toggle('active', el.dataset.key === key);
+                const isActive = el.dataset.key === key;
+                el.classList.toggle('active', isActive);
+                el.setAttribute('aria-pressed', String(isActive));
+                if (isActive) el.scrollIntoView({ block: 'nearest' });
             });
 
-            emptyState.style.display = 'none';
-            playerFrame.style.display = 'block';
-            playerFrame.src = `https://ritzembeds.pages.dev/embed/${ch.slug}`;
+            emptyState.hidden = true;
+            playerFrame.hidden = false;
+            setLoading(ch);
+            playerFrame.src = EMBED_BASE + ch.slug;
+            playerFrame.title = ch.name + ' - Live Stream';
 
             toolbarTitle.textContent = ch.name;
-            toolbarSub.textContent = `${ch.tag} - Channel ${ch.num}`;
-            footerStatus.textContent = `Streaming ${ch.name}`;
+            toolbarSub.textContent = ch.tag + ' - Channel ' + ch.num;
+            document.title = ch.name + ' - TV Portal';
+
+            reloadBtn.disabled = false;
+            fullscreenBtn.disabled = false;
+
+            if (location.hash !== '#' + key) {
+                history.replaceState(null, '', '#' + key);
+            }
         }
 
+        playerFrame.addEventListener('load', () => {
+            if (!activeKey) return;
+            clearTimeout(loadTimer);
+            const ch = channels.find(c => c.key === activeKey);
+            statusDot.classList.remove('loading');
+            footerStatus.textContent = 'Streaming ' + ch.name;
+        });
+
+        function reloadStream() {
+            if (!activeKey) return;
+            const ch = channels.find(c => c.key === activeKey);
+            setLoading(ch);
+            playerFrame.src = EMBED_BASE + ch.slug;
+        }
+
+        function toggleFullscreen() {
+            if (document.fullscreenElement) {
+                document.exitFullscreen();
+            } else {
+                playerCard.requestFullscreen().catch(() => {});
+            }
+        }
+
+        function stepChannel(delta) {
+            const idx = channels.findIndex(c => c.key === activeKey);
+            const next = channels[(idx + delta + channels.length) % channels.length];
+            if (next) loadChannel(next.key);
+        }
+
+        reloadBtn.addEventListener('click', reloadStream);
+        fullscreenBtn.addEventListener('click', toggleFullscreen);
+        playerCard.addEventListener('dblclick', toggleFullscreen);
+
+        document.addEventListener('fullscreenchange', () => {
+            const on = Boolean(document.fullscreenElement);
+            fullscreenBtn.setAttribute('aria-pressed', String(on));
+            fullscreenBtn.title = on ? 'Exit fullscreen (F)' : 'Fullscreen (F)';
+        });
+
+        window.addEventListener('hashchange', () => {
+            const key = location.hash.slice(1);
+            if (key && key !== activeKey) loadChannel(key);
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey || e.metaKey || e.altKey) return;
+            if (e.target instanceof Element && e.target.closest('input, textarea, [contenteditable]')) return;
+
+            if (e.key >= '1' && e.key <= '9') {
+                const ch = channels[Number(e.key) - 1];
+                if (ch) loadChannel(ch.key);
+                return;
+            }
+            switch (e.key) {
+                case 'ArrowDown':
+                case 'ArrowRight':
+                    e.preventDefault();
+                    stepChannel(1);
+                    break;
+                case 'ArrowUp':
+                case 'ArrowLeft':
+                    e.preventDefault();
+                    stepChannel(-1);
+                    break;
+                case 'f':
+                case 'F':
+                    if (activeKey) toggleFullscreen();
+                    break;
+                case 'r':
+                case 'R':
+                    reloadStream();
+                    break;
+            }
+        });
+
         renderChannels();
-        loadChannel('cn');
+
+        const hashKey = location.hash.slice(1);
+        const initialKey = channels.some(c => c.key === hashKey) ? hashKey : 'cn';
+        loadChannel(initialKey);
     </script>
 </body>
 </html>
