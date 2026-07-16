@@ -2,130 +2,114 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TV Portal - tv.tyfsadik.org</title>
-    <meta name="description" content="Live TV streams: Cartoon Network, Disney, Fox, TSN, BeIN Sports, MTV, and more.">
-    <meta name="theme-color" content="#070707">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>TV Portal · Live Streams</title>
+    <meta name="description" content="75 live TV channels — sports, kids, movies & more. Clean embed wrapper.">
+    <meta name="theme-color" content="#0a0a0f">
     <meta name="color-scheme" content="dark">
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://tv.tyfsadik.org">
     <meta property="og:title" content="TV Portal">
-    <meta property="og:description" content="24 live channels. Personal embed wrapper.">
+    <meta property="og:description" content="75 live channels. Personal embed wrapper.">
 
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23e85d04'/><rect x='22' y='32' width='56' height='36' fill='%23000'/><rect x='28' y='38' width='14' height='24' fill='%23e85d04'/><rect x='46' y='38' width='14' height='24' fill='%23e85d04'/><rect x='64' y='38' width='10' height='24' fill='%23e85d04'/></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%23e85d04'/><rect x='22' y='32' width='56' height='36' rx='6' fill='%23000'/><rect x='28' y='38' width='14' height='24' rx='3' fill='%23e85d04'/><rect x='46' y='38' width='14' height='24' rx='3' fill='%23e85d04'/><rect x='64' y='38' width='10' height='24' rx='3' fill='%23e85d04'/></svg>">
 
     <style>
         :root {
-            --bg: #070707;
-            --surface: #0f0f0f;
-            --surface-raised: #141414;
-            --border: #1a1a1a;
-            --border-active: #2a2a2a;
+            --bg: #0a0a0f;
+            --surface: #12121a;
+            --surface2: #181823;
+            --border: #202030;
+            --border-active: #2d2d3f;
             --accent: #e85d04;
-            --accent-dim: #c24e03;
-            --text: #f0f0f0;
-            --text-muted: #888;
-            --text-dim: #555;
-            --danger: #d00000;
-            --success: #38b000;
-            --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            --radius-sm: 4px;
-            --radius-md: 6px;
+            --accent-soft: rgba(232, 93, 4, 0.15);
+            --text: #e8e8f0;
+            --text-secondary: #a0a0b8;
+            --text-muted: #606078;
+            --danger: #ff3b3b;
+            --success: #2ecc71;
+            --font: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --radius: 12px;
+            --radius-sm: 8px;
+            --transition: 0.2s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        [hidden] { display: none !important; }
-
-        html, body {
-            height: 100%;
-            background: var(--bg);
-            color: var(--text);
-            font-family: var(--font);
-            font-size: 14px;
-            line-height: 1.5;
-            overflow: hidden;
-        }
+        html, body { height: 100%; background: var(--bg); color: var(--text); font-family: var(--font); overflow: hidden; }
+        body { font-size: 14px; line-height: 1.5; }
 
         .app {
             display: grid;
-            grid-template-columns: 280px 1fr;
-            grid-template-rows: 48px 1fr;
+            grid-template-columns: 320px 1fr;
+            grid-template-rows: 56px 1fr;
             grid-template-areas:
                 "header header"
                 "sidebar main";
             height: 100vh;
             height: 100dvh;
             width: 100vw;
+            background: radial-gradient(ellipse at 20% 20%, rgba(232,93,4,0.03) 0%, transparent 60%),
+                        radial-gradient(ellipse at 80% 80%, rgba(30,60,100,0.05) 0%, transparent 60%);
         }
 
+        /* HEADER */
         .header {
             grid-area: header;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 20px;
-            background: var(--surface);
+            padding: 0 24px;
+            background: rgba(18,18,26,0.85);
+            backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border);
-            z-index: 10;
+            z-index: 20;
         }
 
         .brand {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             font-weight: 700;
-            font-size: 15px;
-            letter-spacing: -0.3px;
+            font-size: 16px;
+            letter-spacing: -0.4px;
             color: var(--text);
             text-decoration: none;
         }
 
-        .brand:focus-visible {
-            outline: 2px solid var(--accent);
-            outline-offset: 2px;
-            border-radius: var(--radius-sm);
-        }
-
         .brand-mark {
-            width: 22px;
-            height: 22px;
-            background: var(--accent);
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(135deg, var(--accent), #c24e03);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 10px;
+            font-size: 12px;
             font-weight: 800;
             color: #000;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(232,93,4,0.3);
         }
 
-        .header-meta {
+        .header-actions {
             display: flex;
             align-items: center;
             gap: 16px;
         }
 
-        .badge {
-            font-size: 10px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: var(--text-dim);
-            padding: 3px 8px;
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-        }
-
         .live-pill {
             display: flex;
             align-items: center;
-            gap: 6px;
-            font-size: 10px;
+            gap: 8px;
+            font-size: 11px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.1em;
             color: var(--danger);
+            background: rgba(255,59,59,0.08);
+            padding: 6px 14px;
+            border-radius: 50px;
+            border: 1px solid rgba(255,59,59,0.2);
         }
 
         .live-pill::before {
@@ -134,78 +118,166 @@
             height: 6px;
             background: var(--danger);
             border-radius: 50%;
-            animation: blink 2s ease-in-out infinite;
+            animation: pulse 2s ease-in-out infinite;
         }
 
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
         }
 
+        .channel-count {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            background: var(--surface2);
+            padding: 6px 12px;
+            border-radius: 50px;
+            border: 1px solid var(--border);
+        }
+
+        /* SIDEBAR */
         .sidebar {
             grid-area: sidebar;
-            background: var(--surface);
+            background: rgba(18,18,26,0.9);
+            backdrop-filter: blur(20px);
             border-right: 1px solid var(--border);
-            overflow-y: auto;
             display: flex;
             flex-direction: column;
+            overflow: hidden;
         }
 
-        .sidebar-header {
-            padding: 14px 16px 8px;
+        .sidebar-toolbar {
+            padding: 16px 16px 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .search-box {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 10px 14px 10px 40px;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            color: var(--text);
+            font-size: 13px;
+            font-family: var(--font);
+            outline: none;
+            transition: border-color var(--transition), box-shadow var(--transition);
+        }
+
+        .search-box input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(232,93,4,0.1);
+        }
+
+        .search-box svg {
+            position: absolute;
+            left: 14px;
+            width: 16px;
+            height: 16px;
+            fill: none;
+            stroke: var(--text-muted);
+            stroke-width: 2;
+            transition: stroke var(--transition);
+        }
+
+        .search-box input:focus + svg {
+            stroke: var(--accent);
+        }
+
+        .filter-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .filter-tag {
             font-size: 10px;
-            font-weight: 700;
+            font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.12em;
-            color: var(--text-dim);
+            letter-spacing: 0.06em;
+            padding: 4px 12px;
+            border-radius: 50px;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+
+        .filter-tag.active {
+            background: var(--accent-soft);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .filter-tag:hover {
+            border-color: var(--border-active);
+            color: var(--text);
         }
 
         .channel-list {
-            list-style: none;
-            padding: 0 8px 12px;
+            flex: 1;
+            overflow-y: auto;
+            padding: 8px 12px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
         }
 
         .channel-item {
             display: flex;
             align-items: center;
-            gap: 12px;
-            padding: 10px 12px;
-            margin-bottom: 2px;
-            border-radius: var(--radius-md);
+            gap: 14px;
+            padding: 12px 16px;
+            border-radius: var(--radius-sm);
             cursor: pointer;
-            transition: background 0.15s ease, border-color 0.15s ease;
-            border-left: 3px solid transparent;
+            transition: all var(--transition);
+            border: 1px solid transparent;
+            background: transparent;
+            position: relative;
+            user-select: none;
         }
 
         .channel-item:hover {
-            background: var(--surface-raised);
-        }
-
-        .channel-item:focus-visible {
-            outline: 2px solid var(--accent);
-            outline-offset: -2px;
+            background: var(--surface2);
+            border-color: var(--border);
         }
 
         .channel-item.active {
-            background: rgba(232, 93, 4, 0.08);
-            border-left-color: var(--accent);
-        }
-
-        .channel-item.active .channel-name {
-            color: var(--text);
+            background: var(--accent-soft);
+            border-color: rgba(232,93,4,0.3);
+            box-shadow: inset 0 0 0 1px rgba(232,93,4,0.2);
         }
 
         .channel-num {
-            font-size: 11px;
+            font-size: 12px;
             font-weight: 700;
-            color: var(--text-dim);
-            width: 22px;
-            text-align: right;
-            font-variant-numeric: tabular-nums;
+            color: var(--text-muted);
+            width: 28px;
+            height: 28px;
+            background: var(--surface);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border);
+            transition: all var(--transition);
         }
 
         .channel-item.active .channel-num {
-            color: var(--accent);
+            background: var(--accent);
+            color: #000;
+            border-color: var(--accent);
+            box-shadow: 0 2px 8px rgba(232,93,4,0.3);
         }
 
         .channel-info {
@@ -215,81 +287,101 @@
 
         .channel-name {
             font-size: 13px;
-            font-weight: 500;
-            color: var(--text-muted);
+            font-weight: 600;
+            color: var(--text);
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
 
         .channel-tag {
-            font-size: 9px;
-            font-weight: 600;
+            font-size: 10px;
+            font-weight: 500;
             text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: var(--text-dim);
-            margin-top: 1px;
+            letter-spacing: 0.06em;
+            color: var(--text-muted);
+            margin-top: 2px;
         }
 
         .channel-item.active .channel-tag {
-            color: var(--accent-dim);
+            color: var(--accent);
         }
 
+        .view-toggle {
+            display: flex;
+            gap: 4px;
+            margin-left: 8px;
+        }
+
+        .view-btn {
+            width: 30px;
+            height: 30px;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text-muted);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--transition);
+        }
+
+        .view-btn.active {
+            background: var(--surface2);
+            color: var(--text);
+            border-color: var(--border-active);
+        }
+
+        /* MAIN PLAYER */
         .main {
             grid-area: main;
             display: flex;
             flex-direction: column;
-            background: var(--bg);
+            background: transparent;
             position: relative;
-            min-width: 0;
-        }
-
-        .player-stage {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
             padding: 20px;
-            gap: 16px;
-            min-height: 0;
+            min-width: 0;
         }
 
         .player-card {
             flex: 1;
             background: #000;
-            border: 1px solid var(--border);
-            border-radius: var(--radius-md);
+            border-radius: var(--radius);
             overflow: hidden;
             display: flex;
             flex-direction: column;
             position: relative;
-            box-shadow: 0 0 40px rgba(0,0,0,0.6);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.05);
+            transition: all var(--transition);
         }
 
         .player-card:fullscreen {
-            border: none;
             border-radius: 0;
+            box-shadow: none;
         }
 
         .player-toolbar {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 12px 16px;
-            background: var(--surface);
-            border-bottom: 1px solid var(--border);
-            gap: 12px;
+            padding: 12px 20px;
+            background: rgba(18,18,26,0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            gap: 16px;
         }
 
         .toolbar-left {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
             min-width: 0;
         }
 
         .toolbar-title {
-            font-size: 14px;
-            font-weight: 600;
+            font-size: 15px;
+            font-weight: 700;
             color: var(--text);
             white-space: nowrap;
             overflow: hidden;
@@ -297,65 +389,40 @@
         }
 
         .toolbar-sub {
-            font-size: 11px;
-            color: var(--text-dim);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .toolbar-right {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex-shrink: 0;
+            font-size: 12px;
+            color: var(--text-muted);
         }
 
         .tool-btn {
+            width: 36px;
+            height: 36px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            color: var(--text-secondary);
+            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 32px;
-            height: 32px;
-            background: transparent;
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            color: var(--text-muted);
-            cursor: pointer;
-            transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+            transition: all var(--transition);
+            backdrop-filter: blur(8px);
         }
 
         .tool-btn:hover {
-            color: var(--text);
-            border-color: var(--border-active);
-            background: var(--surface-raised);
-        }
-
-        .tool-btn:focus-visible {
-            outline: 2px solid var(--accent);
-            outline-offset: 1px;
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            border-color: rgba(255,255,255,0.2);
         }
 
         .tool-btn:disabled {
-            opacity: 0.4;
-            cursor: default;
-        }
-
-        .tool-btn svg {
-            width: 16px;
-            height: 16px;
-            fill: none;
-            stroke: currentColor;
-            stroke-width: 2;
-            stroke-linecap: round;
-            stroke-linejoin: round;
+            opacity: 0.3;
+            pointer-events: none;
         }
 
         .aspect-wrap {
             flex: 1;
-            position: relative;
             background: #000;
-            min-height: 0;
+            position: relative;
         }
 
         .aspect-wrap iframe {
@@ -366,44 +433,6 @@
             border: none;
         }
 
-        .player-footer {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-            padding: 10px 16px;
-            background: var(--surface);
-            border-top: 1px solid var(--border);
-            font-size: 11px;
-            color: var(--text-dim);
-        }
-
-        .status-line {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            min-width: 0;
-        }
-
-        .status-line span {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .status-dot {
-            width: 6px;
-            height: 6px;
-            flex-shrink: 0;
-            background: var(--success);
-            border-radius: 50%;
-        }
-
-        .status-dot.loading {
-            background: var(--accent);
-            animation: blink 1.2s ease-in-out infinite;
-        }
-
         .empty-state {
             position: absolute;
             inset: 0;
@@ -411,34 +440,56 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 16px;
-            color: var(--text-dim);
+            gap: 20px;
+            color: var(--text-muted);
+            background: #000;
         }
 
-        .empty-state svg {
-            width: 48px;
-            height: 48px;
-            stroke: var(--border-active);
+        .player-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background: rgba(18,18,26,0.9);
+            border-top: 1px solid rgba(255,255,255,0.05);
+            font-size: 11px;
+            color: var(--text-muted);
         }
 
-        .empty-state p {
-            font-size: 13px;
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        .sidebar::-webkit-scrollbar { width: 5px; height: 5px; }
-        .sidebar::-webkit-scrollbar-track { background: transparent; }
-        .sidebar::-webkit-scrollbar-thumb { background: #222; border-radius: 3px; }
-
-        @media (prefers-reduced-motion: reduce) {
-            .live-pill::before,
-            .status-dot.loading { animation: none; }
-            .channel-item, .tool-btn { transition: none; }
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            background: var(--success);
+            border-radius: 50%;
+            box-shadow: 0 0 8px rgba(46,204,113,0.6);
         }
 
+        .status-dot.loading {
+            background: var(--accent);
+            animation: spin-pulse 1.2s ease-in-out infinite;
+        }
+
+        @keyframes spin-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(0.5); opacity: 0.6; }
+        }
+
+        /* Scroll */
+        .channel-list::-webkit-scrollbar { width: 4px; }
+        .channel-list::-webkit-scrollbar-track { background: transparent; }
+        .channel-list::-webkit-scrollbar-thumb { background: #2d2d3f; border-radius: 10px; }
+
+        /* Responsive */
         @media (max-width: 768px) {
             .app {
                 grid-template-columns: 1fr;
-                grid-template-rows: 48px auto 1fr;
+                grid-template-rows: 56px auto 1fr;
                 grid-template-areas:
                     "header"
                     "sidebar"
@@ -447,40 +498,16 @@
             .sidebar {
                 border-right: none;
                 border-bottom: 1px solid var(--border);
-                max-height: 180px;
-                flex-direction: row;
-                overflow-x: auto;
-                overflow-y: hidden;
+                max-height: 200px;
             }
-            .sidebar-header { display: none; }
-            .channel-list {
-                display: flex;
-                gap: 4px;
-                padding: 8px;
-                flex-wrap: nowrap;
-            }
-            .channel-item {
-                flex-direction: column;
-                min-width: 90px;
-                padding: 10px;
-                border-left: none;
-                border-bottom: 3px solid transparent;
-                text-align: center;
-            }
-            .channel-item.active {
-                border-bottom-color: var(--accent);
-                border-left-color: transparent;
-            }
-            .channel-num { width: auto; text-align: center; }
-            .channel-info { text-align: center; }
-            .player-stage { padding: 12px; }
+            .main { padding: 12px; }
+            .filter-tags { display: none; }
         }
 
         @media (max-width: 480px) {
-            .header { padding: 0 12px; }
             .brand span { display: none; }
             .toolbar-sub { display: none; }
-            #footerHint { display: none; }
+            .player-footer span:last-child { display: none; }
         }
     </style>
 </head>
@@ -491,271 +518,337 @@
                 <div class="brand-mark">TV</div>
                 <span>Portal</span>
             </a>
-            <div class="header-meta">
-                <div class="live-pill">Live</div>
-                <div class="badge" id="channelBadge">24 Channels</div>
+            <div class="header-actions">
+                <div class="live-pill">LIVE</div>
+                <div class="channel-count" id="channelBadge">75 channels</div>
             </div>
         </header>
 
-        <aside class="sidebar" id="sidebar">
-            <div class="sidebar-header">Channels</div>
-            <ul class="channel-list" id="channelList"></ul>
+        <aside class="sidebar">
+            <div class="sidebar-toolbar">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Search channels..." autocomplete="off">
+                    <svg viewBox="0 0 24 24" width="16" height="16"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                </div>
+                <div class="filter-tags" id="filterTags">
+                    <span class="filter-tag active" data-filter="all">All</span>
+                    <span class="filter-tag" data-filter="Sports">Sports</span>
+                    <span class="filter-tag" data-filter="Kids">Kids</span>
+                    <span class="filter-tag" data-filter="Movies">Movies</span>
+                    <span class="filter-tag" data-filter="Broadcast">Broadcast</span>
+                    <span class="filter-tag" data-filter="News">News</span>
+                </div>
+            </div>
+            <div class="channel-list" id="channelList"></div>
         </aside>
 
         <main class="main">
-            <div class="player-stage">
-                <div class="player-card" id="playerCard">
-                    <div class="player-toolbar">
-                        <div class="toolbar-left">
-                            <div class="live-pill">Live</div>
-                            <div>
-                                <div class="toolbar-title" id="toolbarTitle">Select a channel</div>
-                                <div class="toolbar-sub" id="toolbarSub">Choose from the sidebar to begin streaming</div>
-                            </div>
-                        </div>
-                        <div class="toolbar-right">
-                            <button class="tool-btn" id="reloadBtn" title="Reload stream (R)" aria-label="Reload stream" disabled>
-                                <svg viewBox="0 0 24 24">
-                                    <path d="M21 12a9 9 0 1 1-2.64-6.36"/>
-                                    <polyline points="21 3 21 9 15 9"/>
-                                </svg>
-                            </button>
-                            <button class="tool-btn" id="fullscreenBtn" title="Fullscreen (F)" aria-label="Toggle fullscreen" aria-pressed="false" disabled>
-                                <svg viewBox="0 0 24 24">
-                                    <path d="M8 3H5a2 2 0 0 0-2 2v3"/>
-                                    <path d="M16 3h3a2 2 0 0 1 2 2v3"/>
-                                    <path d="M8 21H5a2 2 0 0 1-2-2v-3"/>
-                                    <path d="M16 21h3a2 2 0 0 0 2-2v-3"/>
-                                </svg>
-                            </button>
+            <div class="player-card" id="playerCard">
+                <div class="player-toolbar">
+                    <div class="toolbar-left">
+                        <div class="live-pill" style="padding:4px 10px; font-size:10px;">LIVE</div>
+                        <div>
+                            <div class="toolbar-title" id="toolbarTitle">Choose a channel</div>
+                            <div class="toolbar-sub" id="toolbarSub">Select from the sidebar to begin watching</div>
                         </div>
                     </div>
-                    <div class="aspect-wrap" id="playerWrap">
-                        <div class="empty-state" id="emptyState">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                <rect x="2" y="7" width="20" height="10" rx="1"/>
-                                <path d="M10 11l2 2 4-4"/>
-                            </svg>
-                            <p>Select a channel to start watching</p>
-                        </div>
-                        <iframe id="playerFrame" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen title="Live Stream" hidden></iframe>
+                    <div style="display:flex; gap:8px;">
+                        <button class="tool-btn" id="reloadBtn" title="Reload (R)" disabled>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><polyline points="21 3 21 9 15 9"/></svg>
+                        </button>
+                        <button class="tool-btn" id="fullscreenBtn" title="Fullscreen (F)" disabled>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M16 3h3a2 2 0 0 1 2 2v3"/><path d="M8 21H5a2 2 0 0 1-2-2v-3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
+                        </button>
                     </div>
-                    <div class="player-footer">
-                        <div class="status-line">
-                            <div class="status-dot" id="statusDot"></div>
-                            <span id="footerStatus">Ready</span>
-                        </div>
-                        <span id="footerHint">F fullscreen - R reload - 1-9 channels</span>
+                </div>
+                <div class="aspect-wrap" id="playerWrap">
+                    <div class="empty-state" id="emptyState">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="10" rx="2"/><path d="M10 11l2 2 4-4"/></svg>
+                        <p>No channel selected</p>
                     </div>
+                    <iframe id="playerFrame" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen hidden></iframe>
+                </div>
+                <div class="player-footer">
+                    <div class="status-indicator">
+                        <div class="status-dot" id="statusDot"></div>
+                        <span id="footerStatus">Ready</span>
+                    </div>
+                    <span>↩ F: Fullscreen · R: Reload · 1-9: Quick select</span>
                 </div>
             </div>
         </main>
     </div>
 
     <script>
-        const channels = [
-            { key: 'cn', num: '01', name: 'Cartoon Network', slug: 'cartoonnetwork-usa', tag: 'Animation' },
-            { key: 'disney', num: '02', name: 'Disney Channel', slug: 'disneychannel-usa', tag: 'Family' },
-            { key: 'disneyjr', num: '03', name: 'Disney Junior', slug: 'disneyjunior-usa', tag: 'Preschool' },
-            { key: 'disneyxd', num: '04', name: 'Disney XD', slug: 'disneyxd-usa', tag: 'Action' },
-            { key: 'nick', num: '05', name: 'Nickelodeon', slug: 'nickelodeon-usa', tag: 'Kids' },
-            { key: 'nicktoons', num: '06', name: 'Nicktoons', slug: 'nicktoons-usa', tag: 'Animation' },
-            { key: 'fox', num: '07', name: 'Fox', slug: 'fox-usa', tag: 'Broadcast' },
-            { key: 'foxsports', num: '08', name: 'Fox Sports 501', slug: 'fox-sports-501', tag: 'Sports' },
-            { key: 'fox4k', num: '09', name: 'Fox 4K', slug: 'fox4k-usa', tag: 'UHD Broadcast' },
-            { key: 'amc', num: '10', name: 'AMC', slug: 'amc-usa', tag: 'Movies' },
-            { key: 'ae', num: '11', name: 'A&E', slug: 'ae-usa', tag: 'Reality' },
-            { key: 'accn', num: '12', name: 'ACCN', slug: 'accn-usa', tag: 'College Sports' },
-            { key: 'dazn1', num: '13', name: 'DAZN 1', slug: 'dazn1-usa', tag: 'Combat Sports' },
-            { key: 'tsn1', num: '14', name: 'TSN1', slug: 'tsn1-ca', tag: 'Sports Canada' },
-            { key: 'tsn4k', num: '15', name: 'TSN 4K', slug: 'tsn-4k', tag: 'UHD Sports' },
-            { key: 'bein', num: '16', name: 'beIN Sports UHD', slug: 'beinsportsuhd-sa', tag: 'UHD Sports' },
-            { key: 'fussball', num: '17', name: 'Fussball TV UHD', slug: 'fussballtvuhd-de', tag: 'UHD Football' },
-            { key: 'animal', num: '18', name: 'Animal Planet', slug: 'animalplanet-usa', tag: 'Nature' },
-            { key: 'axs', num: '19', name: 'AXS TV', slug: 'axs-usa', tag: 'Music' },
-            { key: 'mtv', num: '20', name: 'MTV', slug: 'mtv-usa', tag: 'Music' },
-            { key: 'twc', num: '21', name: 'Weather Channel', slug: 'twc-usa', tag: 'Weather' },
-            { key: 'tnt', num: '22', name: 'TNT', slug: 'tnt-usa', tag: 'Drama' },
-            { key: 'caze', num: '23', name: 'Caze TV', slug: 'cazetv-br', tag: 'Brazil' },
-            { key: 'thomas247', num: '24', name: 'Thomas 24/7', slug: 'thomas247-vip', tag: 'VIP' }
-        ];
+        (function() {
+            // CHANNEL DATA (75 entries matching your iframe list)
+            const channels = [
+                { key: 'skysport8nz', num: '01', name: 'Sky Sport 8 NZ', slug: 'skysport8-nz', tag: 'Sports' },
+                { key: 'abcusa', num: '02', name: 'ABC (US)', slug: 'abc-usa', tag: 'Broadcast' },
+                { key: 'accnusa', num: '03', name: 'ACCN', slug: 'accn-usa', tag: 'Sports' },
+                { key: 'aeusa', num: '04', name: 'A&E', slug: 'ae-usa', tag: 'Entertainment' },
+                { key: 'amcusa', num: '05', name: 'AMC', slug: 'amc-usa', tag: 'Movies' },
+                { key: 'ahcusa', num: '06', name: 'AHC', slug: 'ahc-usa', tag: 'Documentary' },
+                { key: 'animalplanetusa', num: '07', name: 'Animal Planet', slug: 'animalplanet-usa', tag: 'Nature' },
+                { key: 'axsusa', num: '08', name: 'AXS TV', slug: 'axs-usa', tag: 'Music' },
+                { key: 'bbcusa', num: '09', name: 'BBC America', slug: 'bbc-usa', tag: 'Entertainment' },
+                { key: 'bbconeuk', num: '10', name: 'BBC One', slug: 'bbcone-uk', tag: 'Broadcast' },
+                { key: 'bbctwouk', num: '11', name: 'BBC Two', slug: 'bbctwo-uk', tag: 'Broadcast' },
+                { key: 'beinsportsusa', num: '12', name: 'beIN Sports', slug: 'beinsports-usa', tag: 'Sports' },
+                { key: 'bravousa', num: '13', name: 'Bravo', slug: 'bravo-usa', tag: 'Entertainment' },
+                { key: 'canalsportpl', num: '14', name: 'Canal+ Sport', slug: 'canalsport-pl', tag: 'Sports' },
+                { key: 'canalsport2pl', num: '15', name: 'Canal+ Sport 2', slug: 'canalsport2-pl', tag: 'Sports' },
+                { key: 'canalsport3pl', num: '16', name: 'Canal+ Sport 3', slug: 'canalsport3-pl', tag: 'Sports' },
+                { key: 'canalsport4pl', num: '17', name: 'Canal+ Sport 4', slug: 'canalsport4-pl', tag: 'Sports' },
+                { key: 'canalsport5pl', num: '18', name: 'Canal+ Sport 5', slug: 'canalsport5-pl', tag: 'Sports' },
+                { key: 'cartoonnetworkusa', num: '19', name: 'Cartoon Network', slug: 'cartoonnetwork-usa', tag: 'Kids' },
+                { key: 'cbeebiesuk', num: '20', name: 'CBeebies', slug: 'cbeebies-uk', tag: 'Kids' },
+                { key: 'cbsusa', num: '21', name: 'CBS (US)', slug: 'cbs-usa', tag: 'Broadcast' },
+                { key: 'cbssnusa', num: '22', name: 'CBS Sports', slug: 'cbssn-usa', tag: 'Sports' },
+                { key: 'cwusa', num: '23', name: 'The CW', slug: 'cw-usa', tag: 'Entertainment' },
+                { key: 'dazn1usa', num: '24', name: 'DAZN 1', slug: 'dazn1-usa', tag: 'Sports' },
+                { key: 'daznf1es', num: '25', name: 'DAZN F1', slug: 'daznf1-es', tag: 'Sports' },
+                { key: 'discoveryusa', num: '26', name: 'Discovery', slug: 'discovery-usa', tag: 'Documentary' },
+                { key: 'discoveryfamilyusa', num: '27', name: 'Discovery Family', slug: 'discoveryfamily-usa', tag: 'Family' },
+                { key: 'discoveryturbousa', num: '28', name: 'Discovery Turbo', slug: 'discoveryturbo-usa', tag: 'Automotive' },
+                { key: 'disneychannelusa', num: '29', name: 'Disney Channel', slug: 'disneychannel-usa', tag: 'Kids' },
+                { key: 'disneyjuniorusa', num: '30', name: 'Disney Junior', slug: 'disneyjunior-usa', tag: 'Kids' },
+                { key: 'disneyxdusa', num: '31', name: 'Disney XD', slug: 'disneyxd-usa', tag: 'Kids' },
+                { key: 'espnusa', num: '32', name: 'ESPN', slug: 'espn-usa', tag: 'Sports' },
+                { key: 'espndeportesusa', num: '33', name: 'ESPN Deportes', slug: 'espndeportes-usa', tag: 'Sports' },
+                { key: 'espn2usa', num: '34', name: 'ESPN 2', slug: 'espn2-usa', tag: 'Sports' },
+                { key: 'espnewsusa', num: '35', name: 'ESPNews', slug: 'espnews-usa', tag: 'News' },
+                { key: 'espnuusa', num: '36', name: 'ESPN U', slug: 'espnu-usa', tag: 'Sports' },
+                { key: 'foodnetworkusa', num: '37', name: 'Food Network', slug: 'foodnetwork-usa', tag: 'Lifestyle' },
+                { key: 'foxusa', num: '38', name: 'FOX (US)', slug: 'fox-usa', tag: 'Broadcast' },
+                { key: 'foxsports1', num: '39', name: 'FOX Sports 1', slug: 'fox-sports-1', tag: 'Sports' },
+                { key: 'foxsports2', num: '40', name: 'FOX Sports 2', slug: 'fox-sports-2', tag: 'Sports' },
+                { key: 'foxsports501', num: '41', name: 'FOX Sports 501', slug: 'fox-sports-501', tag: 'Sports' },
+                { key: 'foxsports502', num: '42', name: 'FOX Sports 502', slug: 'fox-sports-502', tag: 'Sports' },
+                { key: 'foxsports503', num: '43', name: 'FOX Sports 503', slug: 'fox-sports-503', tag: 'Sports' },
+                { key: 'foxsports506', num: '44', name: 'FOX Sports 506', slug: 'fox-sports-506', tag: 'Sports' },
+                { key: 'freeformusa', num: '45', name: 'Freeform', slug: 'freeform-usa', tag: 'Entertainment' },
+                { key: 'golfchannelusa', num: '46', name: 'Golf Channel', slug: 'golfchannel-usa', tag: 'Sports' },
+                { key: 'hboua', num: '47', name: 'HBO', slug: 'hbo-usa', tag: 'Movies' },
+                { key: 'hbocomedyusa', num: '48', name: 'HBO Comedy', slug: 'hbocomedy-usa', tag: 'Movies' },
+                { key: 'hgtvusa', num: '49', name: 'HGTV', slug: 'hgtv-usa', tag: 'Lifestyle' },
+                { key: 'mlbnetworkusa', num: '50', name: 'MLB Network', slug: 'mlbnetwork-usa', tag: 'Sports' },
+                { key: 'mtvusa', num: '51', name: 'MTV', slug: 'mtv-usa', tag: 'Music' },
+                { key: 'nbatvusa', num: '52', name: 'NBA TV', slug: 'nbatv-usa', tag: 'Sports' },
+                { key: 'nbcusa', num: '53', name: 'NBC (US)', slug: 'nbc-usa', tag: 'Broadcast' },
+                { key: 'nickjrusa', num: '54', name: 'Nick Jr.', slug: 'nickjr-usa', tag: 'Kids' },
+                { key: 'nickelodeonusa', num: '55', name: 'Nickelodeon', slug: 'nickelodeon-usa', tag: 'Kids' },
+                { key: 'nicktoonsusa', num: '56', name: 'Nicktoons', slug: 'nicktoons-usa', tag: 'Kids' },
+                { key: 'skysport1nz', num: '57', name: 'Sky Sport 1 NZ', slug: 'skysport1-nz', tag: 'Sports' },
+                { key: 'skysport2nz', num: '58', name: 'Sky Sport 2 NZ', slug: 'skysport2-nz', tag: 'Sports' },
+                { key: 'skysport3nz', num: '59', name: 'Sky Sport 3 NZ', slug: 'skysport3-nz', tag: 'Sports' },
+                { key: 'skysport4nz', num: '60', name: 'Sky Sport 4 NZ', slug: 'skysport4-nz', tag: 'Sports' },
+                { key: 'skysport5nz', num: '61', name: 'Sky Sport 5 NZ', slug: 'skysport5-nz', tag: 'Sports' },
+                { key: 'skysport6nz', num: '62', name: 'Sky Sport 6 NZ', slug: 'skysport6-nz', tag: 'Sports' },
+                { key: 'skysport7nz', num: '63', name: 'Sky Sport 7 NZ', slug: 'skysport7-nz', tag: 'Sports' },
+                { key: 'skysportselectnz', num: '64', name: 'Sky Sport Select NZ', slug: 'skysportselect-nz', tag: 'Sports' },
+                { key: 'skysport9nz', num: '65', name: 'Sky Sport 9 NZ', slug: 'skysport9-nz', tag: 'Sports' },
+                { key: 'skysportsf1', num: '66', name: 'Sky Sports F1', slug: 'sky-sports-f1', tag: 'Sports' },
+                { key: 'starzusa', num: '67', name: 'Starz', slug: 'starz-usa', tag: 'Movies' },
+                { key: 'starzcinemausa', num: '68', name: 'Starz Cinema', slug: 'starzcinema-usa', tag: 'Movies' },
+                { key: 'starzcomedyusa', num: '69', name: 'Starz Comedy', slug: 'starzcomedy-usa', tag: 'Movies' },
+                { key: 'starzkidsfamilyusa', num: '70', name: 'Starz Kids & Family', slug: 'starzkidsfamily-usa', tag: 'Family' },
+                { key: 'tbsusa', num: '71', name: 'TBS', slug: 'tbs-usa', tag: 'Entertainment' },
+                { key: 'teenickusa', num: '72', name: 'TeenNick', slug: 'teenick-usa', tag: 'Kids' },
+                { key: 'telemundousa', num: '73', name: 'Telemundo', slug: 'telemundo-usa', tag: 'Spanish' },
+                { key: 'tennischannelusa', num: '74', name: 'Tennis Channel', slug: 'tennischannel-usa', tag: 'Sports' },
+                { key: 'skysport8nz2', num: '75', name: 'Sky Sport 8 NZ (alt)', slug: 'skysport8-nz', tag: 'Sports' }
+            ];
 
-        const EMBED_BASE = 'https://ritzembeds.pages.dev/embed/';
-        const LOAD_TIMEOUT = 12000;
+            const EMBED_BASE = 'https://ritzembeds.pages.dev/play/';
+            const LOAD_TIMEOUT = 12000;
 
-        const listEl = document.getElementById('channelList');
-        const playerFrame = document.getElementById('playerFrame');
-        const playerCard = document.getElementById('playerCard');
-        const emptyState = document.getElementById('emptyState');
-        const toolbarTitle = document.getElementById('toolbarTitle');
-        const toolbarSub = document.getElementById('toolbarSub');
-        const footerStatus = document.getElementById('footerStatus');
-        const statusDot = document.getElementById('statusDot');
-        const channelBadge = document.getElementById('channelBadge');
-        const reloadBtn = document.getElementById('reloadBtn');
-        const fullscreenBtn = document.getElementById('fullscreenBtn');
+            // DOM elements
+            const channelListEl = document.getElementById('channelList');
+            const playerFrame = document.getElementById('playerFrame');
+            const playerCard = document.getElementById('playerCard');
+            const emptyState = document.getElementById('emptyState');
+            const toolbarTitle = document.getElementById('toolbarTitle');
+            const toolbarSub = document.getElementById('toolbarSub');
+            const footerStatus = document.getElementById('footerStatus');
+            const statusDot = document.getElementById('statusDot');
+            const channelBadge = document.getElementById('channelBadge');
+            const reloadBtn = document.getElementById('reloadBtn');
+            const fullscreenBtn = document.getElementById('fullscreenBtn');
+            const searchInput = document.getElementById('searchInput');
+            const filterTags = document.querySelectorAll('.filter-tag');
 
-        let activeKey = null;
-        let loadTimer = null;
+            let activeKey = null;
+            let loadTimer = null;
+            let currentFilter = 'all';
+            let searchQuery = '';
 
-        channelBadge.textContent = channels.length + ' Channels';
-
-        function renderChannels() {
-            const frag = document.createDocumentFragment();
-            channels.forEach(ch => {
-                const li = document.createElement('li');
-                li.className = 'channel-item';
-                li.dataset.key = ch.key;
-                li.tabIndex = 0;
-                li.setAttribute('role', 'button');
-                li.setAttribute('aria-pressed', 'false');
-
-                const num = document.createElement('div');
-                num.className = 'channel-num';
-                num.textContent = ch.num;
-
-                const info = document.createElement('div');
-                info.className = 'channel-info';
-                const name = document.createElement('div');
-                name.className = 'channel-name';
-                name.textContent = ch.name;
-                const tag = document.createElement('div');
-                tag.className = 'channel-tag';
-                tag.textContent = ch.tag;
-                info.append(name, tag);
-
-                li.append(num, info);
-                li.addEventListener('click', () => loadChannel(ch.key));
-                li.addEventListener('keydown', (e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        loadChannel(ch.key);
-                    }
+            // Render channel list based on filter/search
+            function renderChannels() {
+                const filtered = channels.filter(ch => {
+                    const matchFilter = currentFilter === 'all' || ch.tag === currentFilter;
+                    const matchSearch = ch.name.toLowerCase().includes(searchQuery.toLowerCase());
+                    return matchFilter && matchSearch;
                 });
-                frag.appendChild(li);
-            });
-            listEl.appendChild(frag);
-        }
 
-        function setLoading(ch) {
-            clearTimeout(loadTimer);
-            statusDot.classList.add('loading');
-            footerStatus.textContent = 'Loading ' + ch.name + '...';
-            loadTimer = setTimeout(() => {
-                footerStatus.textContent = 'Still loading ' + ch.name + '... stream may be blocked or offline';
-            }, LOAD_TIMEOUT);
-        }
+                channelListEl.innerHTML = '';
+                filtered.forEach(ch => {
+                    const item = document.createElement('div');
+                    item.className = 'channel-item';
+                    item.dataset.key = ch.key;
+                    item.tabIndex = 0;
+                    item.setAttribute('role', 'button');
 
-        function loadChannel(key) {
-            const ch = channels.find(c => c.key === key);
-            if (!ch || activeKey === key) return;
-            activeKey = key;
+                    item.innerHTML = `
+                        <div class="channel-num">${ch.num}</div>
+                        <div class="channel-info">
+                            <div class="channel-name">${ch.name}</div>
+                            <div class="channel-tag">${ch.tag}</div>
+                        </div>
+                    `;
 
-            document.querySelectorAll('.channel-item').forEach(el => {
-                const isActive = el.dataset.key === key;
-                el.classList.toggle('active', isActive);
-                el.setAttribute('aria-pressed', String(isActive));
-                if (isActive) el.scrollIntoView({ block: 'nearest' });
-            });
+                    item.addEventListener('click', () => loadChannel(ch.key));
+                    item.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            loadChannel(ch.key);
+                        }
+                    });
+                    channelListEl.appendChild(item);
+                });
 
-            emptyState.hidden = true;
-            playerFrame.hidden = false;
-            setLoading(ch);
-            playerFrame.src = EMBED_BASE + ch.slug;
-            playerFrame.title = ch.name + ' - Live Stream';
+                // Reapply active state
+                if (activeKey) {
+                    const activeItem = channelListEl.querySelector(`[data-key="${activeKey}"]`);
+                    if (activeItem) activeItem.classList.add('active');
+                }
 
-            toolbarTitle.textContent = ch.name;
-            toolbarSub.textContent = ch.tag + ' - Channel ' + ch.num;
-            document.title = ch.name + ' - TV Portal';
+                channelBadge.textContent = filtered.length + ' channels';
+            }
 
-            reloadBtn.disabled = false;
-            fullscreenBtn.disabled = false;
+            // Load channel stream
+            function loadChannel(key) {
+                const ch = channels.find(c => c.key === key);
+                if (!ch || activeKey === key) return;
 
-            if (location.hash !== '#' + key) {
+                activeKey = key;
+
+                // Update active styling
+                document.querySelectorAll('.channel-item').forEach(el => {
+                    el.classList.toggle('active', el.dataset.key === key);
+                });
+
+                emptyState.hidden = true;
+                playerFrame.hidden = false;
+                setLoading(ch);
+                playerFrame.src = EMBED_BASE + ch.slug;
+                playerFrame.title = ch.name + ' - Live Stream';
+
+                toolbarTitle.textContent = ch.name;
+                toolbarSub.textContent = ch.tag + ' · Ch ' + ch.num;
+                document.title = ch.name + ' · TV Portal';
+
+                reloadBtn.disabled = false;
+                fullscreenBtn.disabled = false;
+
                 history.replaceState(null, '', '#' + key);
             }
-        }
 
-        playerFrame.addEventListener('load', () => {
-            if (!activeKey) return;
-            clearTimeout(loadTimer);
-            const ch = channels.find(c => c.key === activeKey);
-            statusDot.classList.remove('loading');
-            footerStatus.textContent = 'Streaming ' + ch.name;
-        });
-
-        function reloadStream() {
-            if (!activeKey) return;
-            const ch = channels.find(c => c.key === activeKey);
-            setLoading(ch);
-            playerFrame.src = EMBED_BASE + ch.slug;
-        }
-
-        function toggleFullscreen() {
-            if (document.fullscreenElement) {
-                document.exitFullscreen();
-            } else {
-                playerCard.requestFullscreen().catch(() => {});
+            function setLoading(ch) {
+                clearTimeout(loadTimer);
+                statusDot.classList.add('loading');
+                footerStatus.textContent = 'Connecting to ' + ch.name + '...';
+                loadTimer = setTimeout(() => {
+                    footerStatus.textContent = 'Stream may be blocked or offline';
+                }, LOAD_TIMEOUT);
             }
-        }
 
-        function stepChannel(delta) {
-            const idx = channels.findIndex(c => c.key === activeKey);
-            const next = channels[(idx + delta + channels.length) % channels.length];
-            if (next) loadChannel(next.key);
-        }
+            playerFrame.addEventListener('load', () => {
+                if (!activeKey) return;
+                clearTimeout(loadTimer);
+                const ch = channels.find(c => c.key === activeKey);
+                statusDot.classList.remove('loading');
+                footerStatus.textContent = 'Now playing · ' + ch.name;
+            });
 
-        reloadBtn.addEventListener('click', reloadStream);
-        fullscreenBtn.addEventListener('click', toggleFullscreen);
-        playerCard.addEventListener('dblclick', toggleFullscreen);
-
-        document.addEventListener('fullscreenchange', () => {
-            const on = Boolean(document.fullscreenElement);
-            fullscreenBtn.setAttribute('aria-pressed', String(on));
-            fullscreenBtn.title = on ? 'Exit fullscreen (F)' : 'Fullscreen (F)';
-        });
-
-        window.addEventListener('hashchange', () => {
-            const key = location.hash.slice(1);
-            if (key && key !== activeKey) loadChannel(key);
-        });
-
-        document.addEventListener('keydown', (e) => {
-            if (e.ctrlKey || e.metaKey || e.altKey) return;
-            if (e.target instanceof Element && e.target.closest('input, textarea, [contenteditable]')) return;
-
-            if (e.key >= '1' && e.key <= '9') {
-                const ch = channels[Number(e.key) - 1];
-                if (ch) loadChannel(ch.key);
-                return;
+            function reloadStream() {
+                if (!activeKey) return;
+                const ch = channels.find(c => c.key === activeKey);
+                setLoading(ch);
+                playerFrame.src = EMBED_BASE + ch.slug;
             }
-            switch (e.key) {
-                case 'ArrowDown':
-                case 'ArrowRight':
+
+            function toggleFullscreen() {
+                if (document.fullscreenElement) {
+                    document.exitFullscreen();
+                } else {
+                    playerCard.requestFullscreen().catch(() => {});
+                }
+            }
+
+            // Event listeners
+            reloadBtn.addEventListener('click', reloadStream);
+            fullscreenBtn.addEventListener('click', toggleFullscreen);
+            playerCard.addEventListener('dblclick', toggleFullscreen);
+
+            document.addEventListener('fullscreenchange', () => {
+                const isFull = !!document.fullscreenElement;
+                fullscreenBtn.style.color = isFull ? 'var(--accent)' : '';
+            });
+
+            searchInput.addEventListener('input', (e) => {
+                searchQuery = e.target.value;
+                renderChannels();
+            });
+
+            filterTags.forEach(tag => {
+                tag.addEventListener('click', () => {
+                    filterTags.forEach(t => t.classList.remove('active'));
+                    tag.classList.add('active');
+                    currentFilter = tag.dataset.filter;
+                    renderChannels();
+                });
+            });
+
+            // Keyboard shortcuts
+            document.addEventListener('keydown', (e) => {
+                if (e.ctrlKey || e.metaKey || e.altKey) return;
+                if (e.target.matches('input, textarea')) return;
+
+                if (e.key >= '1' && e.key <= '9') {
+                    const idx = parseInt(e.key) - 1;
+                    if (idx < channels.length) loadChannel(channels[idx].key);
+                    return;
+                }
+
+                const idx = channels.findIndex(c => c.key === activeKey);
+                if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
                     e.preventDefault();
-                    stepChannel(1);
-                    break;
-                case 'ArrowUp':
-                case 'ArrowLeft':
+                    const next = (idx + 1) % channels.length;
+                    loadChannel(channels[next].key);
+                } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
                     e.preventDefault();
-                    stepChannel(-1);
-                    break;
-                case 'f':
-                case 'F':
+                    const prev = (idx - 1 + channels.length) % channels.length;
+                    loadChannel(channels[prev].key);
+                } else if (e.key === 'f' || e.key === 'F') {
                     if (activeKey) toggleFullscreen();
-                    break;
-                case 'r':
-                case 'R':
+                } else if (e.key === 'r' || e.key === 'R') {
                     reloadStream();
-                    break;
-            }
-        });
+                }
+            });
 
-        renderChannels();
+            // Hash routing
+            window.addEventListener('hashchange', () => {
+                const key = location.hash.slice(1);
+                if (key && key !== activeKey) loadChannel(key);
+            });
 
-        const hashKey = location.hash.slice(1);
-        const initialKey = channels.some(c => c.key === hashKey) ? hashKey : 'cn';
-        loadChannel(initialKey);
+            // Initial render
+            renderChannels();
+            const hashKey = location.hash.slice(1);
+            const initialKey = channels.some(c => c.key === hashKey) ? hashKey : 'skysport8nz';
+            loadChannel(initialKey);
+        })();
     </script>
 </body>
 </html>
