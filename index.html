@@ -3,511 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>TV Portal · Live Streams</title>
-    <meta name="description" content="75 live TV channels — sports, kids, movies & more. Clean embed wrapper.">
+    <title>TV Portal · Live</title>
+    <meta name="description" content="75 live channels – secure, no visible embeds.">
     <meta name="theme-color" content="#0a0a0f">
     <meta name="color-scheme" content="dark">
-
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://tv.tyfsadik.org">
-    <meta property="og:title" content="TV Portal">
-    <meta property="og:description" content="75 live channels. Personal embed wrapper.">
 
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%23e85d04'/><rect x='22' y='32' width='56' height='36' rx='6' fill='%23000'/><rect x='28' y='38' width='14' height='24' rx='3' fill='%23e85d04'/><rect x='46' y='38' width='14' height='24' rx='3' fill='%23e85d04'/><rect x='64' y='38' width='10' height='24' rx='3' fill='%23e85d04'/></svg>">
 
     <style>
         :root {
             --bg: #0a0a0f;
-            --surface: #12121a;
+            --surface: rgba(18, 18, 26, 0.85);
             --surface2: #181823;
             --border: #202030;
-            --border-active: #2d2d3f;
             --accent: #e85d04;
-            --accent-soft: rgba(232, 93, 4, 0.15);
             --text: #e8e8f0;
-            --text-secondary: #a0a0b8;
             --text-muted: #606078;
-            --danger: #ff3b3b;
-            --success: #2ecc71;
-            --font: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             --radius: 12px;
             --radius-sm: 8px;
-            --transition: 0.2s cubic-bezier(0.23, 1, 0.32, 1);
         }
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html, body { height: 100%; background: var(--bg); color: var(--text); font-family: var(--font); overflow: hidden; }
-        body { font-size: 14px; line-height: 1.5; }
-
+        html, body { height: 100%; background: var(--bg); color: var(--text); font-family: 'Inter', system-ui, sans-serif; overflow: hidden; }
         .app {
             display: grid;
             grid-template-columns: 320px 1fr;
             grid-template-rows: 56px 1fr;
-            grid-template-areas:
-                "header header"
-                "sidebar main";
-            height: 100vh;
-            height: 100dvh;
-            width: 100vw;
-            background: radial-gradient(ellipse at 20% 20%, rgba(232,93,4,0.03) 0%, transparent 60%),
-                        radial-gradient(ellipse at 80% 80%, rgba(30,60,100,0.05) 0%, transparent 60%);
+            grid-template-areas: "header header" "sidebar main";
+            height: 100vh; height: 100dvh; width: 100vw;
+            background: radial-gradient(ellipse at 20% 20%, rgba(232,93,4,0.04) 0%, transparent 60%);
         }
-
-        /* HEADER */
+        /* Header */
         .header {
             grid-area: header;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+            display: flex; align-items: center; justify-content: space-between;
             padding: 0 24px;
             background: rgba(18,18,26,0.85);
-            backdrop-filter: blur(16px);
+            backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border);
             z-index: 20;
         }
+        .brand { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 16px; letter-spacing: -0.4px; text-decoration: none; color: var(--text); }
+        .brand-mark { width: 28px; height: 28px; background: linear-gradient(135deg, var(--accent), #c24e03); border-radius: 8px; display: grid; place-items: center; font-weight: 800; color: #000; font-size: 12px; box-shadow: 0 4px 10px rgba(232,93,4,0.3); }
+        .live-pill { display: flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #ff3b3b; background: rgba(255,59,59,0.08); padding: 6px 14px; border-radius: 50px; border: 1px solid rgba(255,59,59,0.2); }
+        .live-pill::before { content: ''; width: 6px; height: 6px; background: #ff3b3b; border-radius: 50%; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%,100% { opacity:1; transform: scale(1); } 50% { opacity:0.5; transform: scale(0.8); } }
+        .channel-count { font-size: 11px; font-weight: 600; color: var(--text-muted); background: var(--surface2); padding: 6px 12px; border-radius: 50px; border: 1px solid var(--border); }
 
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-weight: 700;
-            font-size: 16px;
-            letter-spacing: -0.4px;
-            color: var(--text);
-            text-decoration: none;
-        }
-
-        .brand-mark {
-            width: 28px;
-            height: 28px;
-            background: linear-gradient(135deg, var(--accent), #c24e03);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            font-weight: 800;
-            color: #000;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(232,93,4,0.3);
-        }
-
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .live-pill {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--danger);
-            background: rgba(255,59,59,0.08);
-            padding: 6px 14px;
-            border-radius: 50px;
-            border: 1px solid rgba(255,59,59,0.2);
-        }
-
-        .live-pill::before {
-            content: '';
-            width: 6px;
-            height: 6px;
-            background: var(--danger);
-            border-radius: 50%;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(0.8); }
-        }
-
-        .channel-count {
-            font-size: 11px;
-            font-weight: 600;
-            color: var(--text-secondary);
-            background: var(--surface2);
-            padding: 6px 12px;
-            border-radius: 50px;
-            border: 1px solid var(--border);
-        }
-
-        /* SIDEBAR */
+        /* Sidebar */
         .sidebar {
             grid-area: sidebar;
             background: rgba(18,18,26,0.9);
             backdrop-filter: blur(20px);
             border-right: 1px solid var(--border);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
+            display: flex; flex-direction: column; overflow: hidden;
         }
+        .sidebar-toolbar { padding: 16px 16px 8px; display: flex; flex-direction: column; gap: 12px; }
+        .search-box { position: relative; }
+        .search-box input { width: 100%; padding: 10px 14px 10px 40px; background: var(--surface2); border: 1px solid var(--border); border-radius: 50px; color: var(--text); font-size: 13px; outline: none; transition: border-color 0.2s, box-shadow 0.2s; }
+        .search-box input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(232,93,4,0.1); }
+        .search-box svg { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); stroke: var(--text-muted); transition: stroke 0.2s; }
+        .search-box input:focus + svg { stroke: var(--accent); }
+        .filter-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+        .filter-tag { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; padding: 4px 12px; border-radius: 50px; border: 1px solid var(--border); background: transparent; color: var(--text-muted); cursor: pointer; transition: all 0.2s; }
+        .filter-tag.active, .filter-tag:hover { border-color: var(--accent); color: var(--accent); background: rgba(232,93,4,0.1); }
+        .channel-list { flex: 1; overflow-y: auto; padding: 8px 12px 16px; display: flex; flex-direction: column; gap: 4px; }
+        .channel-item { display: flex; align-items: center; gap: 14px; padding: 12px 16px; border-radius: var(--radius-sm); cursor: pointer; transition: all 0.2s; border: 1px solid transparent; }
+        .channel-item:hover { background: var(--surface2); border-color: var(--border); }
+        .channel-item.active { background: rgba(232,93,4,0.1); border-color: rgba(232,93,4,0.3); }
+        .channel-num { width: 28px; height: 28px; background: var(--bg); border-radius: 8px; display: grid; place-items: center; font-weight: 700; font-size: 12px; color: var(--text-muted); border: 1px solid var(--border); transition: all 0.2s; }
+        .channel-item.active .channel-num { background: var(--accent); color: #000; border-color: var(--accent); box-shadow: 0 2px 8px rgba(232,93,4,0.3); }
+        .channel-info { flex: 1; min-width: 0; }
+        .channel-name { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .channel-tag { font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); margin-top: 2px; }
+        .channel-item.active .channel-tag { color: var(--accent); }
 
-        .sidebar-toolbar {
-            padding: 16px 16px 8px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
+        /* Main player */
+        .main { grid-area: main; padding: 20px; display: flex; flex-direction: column; }
+        .player-card { flex: 1; background: #000; border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 20px 50px rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.05); }
+        .player-toolbar { display: flex; align-items: center; justify-content: space-between; padding: 12px 20px; background: rgba(18,18,26,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .toolbar-left { display: flex; align-items: center; gap: 14px; min-width: 0; }
+        .toolbar-title { font-size: 15px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .toolbar-sub { font-size: 12px; color: var(--text-muted); }
+        .tool-btn { width: 36px; height: 36px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: var(--text-muted); cursor: pointer; display: grid; place-items: center; transition: all 0.2s; }
+        .tool-btn:hover { background: rgba(255,255,255,0.1); color: #fff; }
+        .tool-btn:disabled { opacity: 0.3; pointer-events: none; }
+        .aspect-wrap { flex: 1; background: #000; position: relative; }
+        .aspect-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+        .empty-state { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; color: var(--text-muted); }
+        .player-footer { display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; background: rgba(18,18,26,0.9); border-top: 1px solid rgba(255,255,255,0.05); font-size: 11px; color: var(--text-muted); }
+        .status-dot { width: 7px; height: 7px; background: #2ecc71; border-radius: 50%; box-shadow: 0 0 8px rgba(46,204,113,0.6); }
+        .status-dot.loading { background: var(--accent); animation: spin-pulse 1.2s infinite; }
+        @keyframes spin-pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(0.5); opacity: 0.6; } }
 
-        .search-box {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
-
-        .search-box input {
-            width: 100%;
-            padding: 10px 14px 10px 40px;
-            background: var(--surface2);
-            border: 1px solid var(--border);
-            border-radius: 50px;
-            color: var(--text);
-            font-size: 13px;
-            font-family: var(--font);
-            outline: none;
-            transition: border-color var(--transition), box-shadow var(--transition);
-        }
-
-        .search-box input:focus {
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(232,93,4,0.1);
-        }
-
-        .search-box svg {
-            position: absolute;
-            left: 14px;
-            width: 16px;
-            height: 16px;
-            fill: none;
-            stroke: var(--text-muted);
-            stroke-width: 2;
-            transition: stroke var(--transition);
-        }
-
-        .search-box input:focus + svg {
-            stroke: var(--accent);
-        }
-
-        .filter-tags {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .filter-tag {
-            font-size: 10px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            padding: 4px 12px;
-            border-radius: 50px;
-            border: 1px solid var(--border);
-            background: transparent;
-            color: var(--text-secondary);
-            cursor: pointer;
-            transition: all var(--transition);
-        }
-
-        .filter-tag.active {
-            background: var(--accent-soft);
-            border-color: var(--accent);
-            color: var(--accent);
-        }
-
-        .filter-tag:hover {
-            border-color: var(--border-active);
-            color: var(--text);
-        }
-
-        .channel-list {
-            flex: 1;
-            overflow-y: auto;
-            padding: 8px 12px 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .channel-item {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            padding: 12px 16px;
-            border-radius: var(--radius-sm);
-            cursor: pointer;
-            transition: all var(--transition);
-            border: 1px solid transparent;
-            background: transparent;
-            position: relative;
-            user-select: none;
-        }
-
-        .channel-item:hover {
-            background: var(--surface2);
-            border-color: var(--border);
-        }
-
-        .channel-item.active {
-            background: var(--accent-soft);
-            border-color: rgba(232,93,4,0.3);
-            box-shadow: inset 0 0 0 1px rgba(232,93,4,0.2);
-        }
-
-        .channel-num {
-            font-size: 12px;
-            font-weight: 700;
-            color: var(--text-muted);
-            width: 28px;
-            height: 28px;
-            background: var(--surface);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid var(--border);
-            transition: all var(--transition);
-        }
-
-        .channel-item.active .channel-num {
-            background: var(--accent);
-            color: #000;
-            border-color: var(--accent);
-            box-shadow: 0 2px 8px rgba(232,93,4,0.3);
-        }
-
-        .channel-info {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .channel-name {
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .channel-tag {
-            font-size: 10px;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            color: var(--text-muted);
-            margin-top: 2px;
-        }
-
-        .channel-item.active .channel-tag {
-            color: var(--accent);
-        }
-
-        .view-toggle {
-            display: flex;
-            gap: 4px;
-            margin-left: 8px;
-        }
-
-        .view-btn {
-            width: 30px;
-            height: 30px;
-            background: transparent;
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            color: var(--text-muted);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all var(--transition);
-        }
-
-        .view-btn.active {
-            background: var(--surface2);
-            color: var(--text);
-            border-color: var(--border-active);
-        }
-
-        /* MAIN PLAYER */
-        .main {
-            grid-area: main;
-            display: flex;
-            flex-direction: column;
-            background: transparent;
-            position: relative;
-            padding: 20px;
-            min-width: 0;
-        }
-
-        .player-card {
-            flex: 1;
-            background: #000;
-            border-radius: var(--radius);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.05);
-            transition: all var(--transition);
-        }
-
-        .player-card:fullscreen {
-            border-radius: 0;
-            box-shadow: none;
-        }
-
-        .player-toolbar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px 20px;
-            background: rgba(18,18,26,0.95);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            gap: 16px;
-        }
-
-        .toolbar-left {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            min-width: 0;
-        }
-
-        .toolbar-title {
-            font-size: 15px;
-            font-weight: 700;
-            color: var(--text);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .toolbar-sub {
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-
-        .tool-btn {
-            width: 36px;
-            height: 36px;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 10px;
-            color: var(--text-secondary);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all var(--transition);
-            backdrop-filter: blur(8px);
-        }
-
-        .tool-btn:hover {
-            background: rgba(255,255,255,0.1);
-            color: #fff;
-            border-color: rgba(255,255,255,0.2);
-        }
-
-        .tool-btn:disabled {
-            opacity: 0.3;
-            pointer-events: none;
-        }
-
-        .aspect-wrap {
-            flex: 1;
-            background: #000;
-            position: relative;
-        }
-
-        .aspect-wrap iframe {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        .empty-state {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
-            color: var(--text-muted);
-            background: #000;
-        }
-
-        .player-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 20px;
-            background: rgba(18,18,26,0.9);
-            border-top: 1px solid rgba(255,255,255,0.05);
-            font-size: 11px;
-            color: var(--text-muted);
-        }
-
-        .status-indicator {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .status-dot {
-            width: 7px;
-            height: 7px;
-            background: var(--success);
-            border-radius: 50%;
-            box-shadow: 0 0 8px rgba(46,204,113,0.6);
-        }
-
-        .status-dot.loading {
-            background: var(--accent);
-            animation: spin-pulse 1.2s ease-in-out infinite;
-        }
-
-        @keyframes spin-pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(0.5); opacity: 0.6; }
-        }
-
-        /* Scroll */
         .channel-list::-webkit-scrollbar { width: 4px; }
         .channel-list::-webkit-scrollbar-track { background: transparent; }
         .channel-list::-webkit-scrollbar-thumb { background: #2d2d3f; border-radius: 10px; }
 
-        /* Responsive */
         @media (max-width: 768px) {
-            .app {
-                grid-template-columns: 1fr;
-                grid-template-rows: 56px auto 1fr;
-                grid-template-areas:
-                    "header"
-                    "sidebar"
-                    "main";
-            }
-            .sidebar {
-                border-right: none;
-                border-bottom: 1px solid var(--border);
-                max-height: 200px;
-            }
+            .app { grid-template-columns: 1fr; grid-template-rows: 56px auto 1fr; grid-template-areas: "header" "sidebar" "main"; }
+            .sidebar { border-right: none; border-bottom: 1px solid var(--border); max-height: 200px; }
             .main { padding: 12px; }
-            .filter-tags { display: none; }
-        }
-
-        @media (max-width: 480px) {
-            .brand span { display: none; }
-            .toolbar-sub { display: none; }
-            .player-footer span:last-child { display: none; }
         }
     </style>
 </head>
@@ -528,7 +123,7 @@
             <div class="sidebar-toolbar">
                 <div class="search-box">
                     <input type="text" id="searchInput" placeholder="Search channels..." autocomplete="off">
-                    <svg viewBox="0 0 24 24" width="16" height="16"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
                 </div>
                 <div class="filter-tags" id="filterTags">
                     <span class="filter-tag active" data-filter="all">All</span>
@@ -536,7 +131,6 @@
                     <span class="filter-tag" data-filter="Kids">Kids</span>
                     <span class="filter-tag" data-filter="Movies">Movies</span>
                     <span class="filter-tag" data-filter="Broadcast">Broadcast</span>
-                    <span class="filter-tag" data-filter="News">News</span>
                 </div>
             </div>
             <div class="channel-list" id="channelList"></div>
@@ -561,7 +155,7 @@
                         </button>
                     </div>
                 </div>
-                <div class="aspect-wrap" id="playerWrap">
+                <div class="aspect-wrap">
                     <div class="empty-state" id="emptyState">
                         <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="10" rx="2"/><path d="M10 11l2 2 4-4"/></svg>
                         <p>No channel selected</p>
@@ -573,7 +167,7 @@
                         <div class="status-dot" id="statusDot"></div>
                         <span id="footerStatus">Ready</span>
                     </div>
-                    <span>↩ F: Fullscreen · R: Reload · 1-9: Quick select</span>
+                    <span>F: Fullscreen · R: Reload · 1-9: Quick select</span>
                 </div>
             </div>
         </main>
@@ -581,7 +175,7 @@
 
     <script>
         (function() {
-            // CHANNEL DATA (75 entries matching your iframe list)
+            // All 75 channels (same as before)
             const channels = [
                 { key: 'skysport8nz', num: '01', name: 'Sky Sport 8 NZ', slug: 'skysport8-nz', tag: 'Sports' },
                 { key: 'abcusa', num: '02', name: 'ABC (US)', slug: 'abc-usa', tag: 'Broadcast' },
@@ -660,10 +254,11 @@
                 { key: 'skysport8nz2', num: '75', name: 'Sky Sport 8 NZ (alt)', slug: 'skysport8-nz', tag: 'Sports' }
             ];
 
-            const EMBED_BASE = 'https://ritzembeds.pages.dev/play/';
+            // !! CHANGE THIS TO YOUR WORKER URL !!
+            // Example: https://your-proxy.workers.dev/stream/
+            const PROXY_BASE = '/stream/';   // relative if same domain, else absolute URL
             const LOAD_TIMEOUT = 12000;
 
-            // DOM elements
             const channelListEl = document.getElementById('channelList');
             const playerFrame = document.getElementById('playerFrame');
             const playerCard = document.getElementById('playerCard');
@@ -683,74 +278,46 @@
             let currentFilter = 'all';
             let searchQuery = '';
 
-            // Render channel list based on filter/search
             function renderChannels() {
                 const filtered = channels.filter(ch => {
                     const matchFilter = currentFilter === 'all' || ch.tag === currentFilter;
                     const matchSearch = ch.name.toLowerCase().includes(searchQuery.toLowerCase());
                     return matchFilter && matchSearch;
                 });
-
                 channelListEl.innerHTML = '';
                 filtered.forEach(ch => {
                     const item = document.createElement('div');
                     item.className = 'channel-item';
                     item.dataset.key = ch.key;
                     item.tabIndex = 0;
-                    item.setAttribute('role', 'button');
-
-                    item.innerHTML = `
-                        <div class="channel-num">${ch.num}</div>
-                        <div class="channel-info">
-                            <div class="channel-name">${ch.name}</div>
-                            <div class="channel-tag">${ch.tag}</div>
-                        </div>
-                    `;
-
+                    item.innerHTML = `<div class="channel-num">${ch.num}</div><div class="channel-info"><div class="channel-name">${ch.name}</div><div class="channel-tag">${ch.tag}</div></div>`;
                     item.addEventListener('click', () => loadChannel(ch.key));
-                    item.addEventListener('keydown', (e) => {
-                        if (e.key === 'Enter' || e.key === ' ') {
-                            e.preventDefault();
-                            loadChannel(ch.key);
-                        }
-                    });
+                    item.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); loadChannel(ch.key); } });
                     channelListEl.appendChild(item);
                 });
-
-                // Reapply active state
                 if (activeKey) {
                     const activeItem = channelListEl.querySelector(`[data-key="${activeKey}"]`);
                     if (activeItem) activeItem.classList.add('active');
                 }
-
                 channelBadge.textContent = filtered.length + ' channels';
             }
 
-            // Load channel stream
             function loadChannel(key) {
                 const ch = channels.find(c => c.key === key);
                 if (!ch || activeKey === key) return;
-
                 activeKey = key;
-
-                // Update active styling
-                document.querySelectorAll('.channel-item').forEach(el => {
-                    el.classList.toggle('active', el.dataset.key === key);
-                });
-
+                document.querySelectorAll('.channel-item').forEach(el => el.classList.toggle('active', el.dataset.key === key));
                 emptyState.hidden = true;
                 playerFrame.hidden = false;
                 setLoading(ch);
-                playerFrame.src = EMBED_BASE + ch.slug;
+                // Use the proxy – viewers will only see /stream/skysport8-nz
+                playerFrame.src = PROXY_BASE + ch.slug;
                 playerFrame.title = ch.name + ' - Live Stream';
-
                 toolbarTitle.textContent = ch.name;
                 toolbarSub.textContent = ch.tag + ' · Ch ' + ch.num;
                 document.title = ch.name + ' · TV Portal';
-
                 reloadBtn.disabled = false;
                 fullscreenBtn.disabled = false;
-
                 history.replaceState(null, '', '#' + key);
             }
 
@@ -758,92 +325,54 @@
                 clearTimeout(loadTimer);
                 statusDot.classList.add('loading');
                 footerStatus.textContent = 'Connecting to ' + ch.name + '...';
-                loadTimer = setTimeout(() => {
-                    footerStatus.textContent = 'Stream may be blocked or offline';
-                }, LOAD_TIMEOUT);
+                loadTimer = setTimeout(() => footerStatus.textContent = 'Stream may be blocked or offline', LOAD_TIMEOUT);
             }
 
             playerFrame.addEventListener('load', () => {
                 if (!activeKey) return;
                 clearTimeout(loadTimer);
-                const ch = channels.find(c => c.key === activeKey);
                 statusDot.classList.remove('loading');
+                const ch = channels.find(c => c.key === activeKey);
                 footerStatus.textContent = 'Now playing · ' + ch.name;
             });
 
-            function reloadStream() {
+            reloadBtn.addEventListener('click', () => {
                 if (!activeKey) return;
                 const ch = channels.find(c => c.key === activeKey);
                 setLoading(ch);
-                playerFrame.src = EMBED_BASE + ch.slug;
-            }
-
-            function toggleFullscreen() {
-                if (document.fullscreenElement) {
-                    document.exitFullscreen();
-                } else {
-                    playerCard.requestFullscreen().catch(() => {});
-                }
-            }
-
-            // Event listeners
-            reloadBtn.addEventListener('click', reloadStream);
-            fullscreenBtn.addEventListener('click', toggleFullscreen);
-            playerCard.addEventListener('dblclick', toggleFullscreen);
-
-            document.addEventListener('fullscreenchange', () => {
-                const isFull = !!document.fullscreenElement;
-                fullscreenBtn.style.color = isFull ? 'var(--accent)' : '';
+                playerFrame.src = PROXY_BASE + ch.slug;
             });
 
-            searchInput.addEventListener('input', (e) => {
-                searchQuery = e.target.value;
+            fullscreenBtn.addEventListener('click', () => {
+                if (document.fullscreenElement) document.exitFullscreen();
+                else playerCard.requestFullscreen().catch(() => {});
+            });
+            playerCard.addEventListener('dblclick', () => fullscreenBtn.click());
+
+            searchInput.addEventListener('input', e => { searchQuery = e.target.value; renderChannels(); });
+            filterTags.forEach(tag => tag.addEventListener('click', () => {
+                filterTags.forEach(t => t.classList.remove('active'));
+                tag.classList.add('active');
+                currentFilter = tag.dataset.filter;
                 renderChannels();
-            });
+            }));
 
-            filterTags.forEach(tag => {
-                tag.addEventListener('click', () => {
-                    filterTags.forEach(t => t.classList.remove('active'));
-                    tag.classList.add('active');
-                    currentFilter = tag.dataset.filter;
-                    renderChannels();
-                });
-            });
-
-            // Keyboard shortcuts
-            document.addEventListener('keydown', (e) => {
+            document.addEventListener('keydown', e => {
                 if (e.ctrlKey || e.metaKey || e.altKey) return;
                 if (e.target.matches('input, textarea')) return;
-
-                if (e.key >= '1' && e.key <= '9') {
-                    const idx = parseInt(e.key) - 1;
-                    if (idx < channels.length) loadChannel(channels[idx].key);
-                    return;
-                }
-
+                if (e.key >= '1' && e.key <= '9') { const idx = parseInt(e.key)-1; if (idx < channels.length) loadChannel(channels[idx].key); return; }
                 const idx = channels.findIndex(c => c.key === activeKey);
-                if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
-                    e.preventDefault();
-                    const next = (idx + 1) % channels.length;
-                    loadChannel(channels[next].key);
-                } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
-                    e.preventDefault();
-                    const prev = (idx - 1 + channels.length) % channels.length;
-                    loadChannel(channels[prev].key);
-                } else if (e.key === 'f' || e.key === 'F') {
-                    if (activeKey) toggleFullscreen();
-                } else if (e.key === 'r' || e.key === 'R') {
-                    reloadStream();
-                }
+                if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { e.preventDefault(); loadChannel(channels[(idx+1)%channels.length].key); }
+                else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') { e.preventDefault(); loadChannel(channels[(idx-1+channels.length)%channels.length].key); }
+                else if (e.key === 'f' || e.key === 'F') { if (activeKey) fullscreenBtn.click(); }
+                else if (e.key === 'r' || e.key === 'R') { reloadBtn.click(); }
             });
 
-            // Hash routing
             window.addEventListener('hashchange', () => {
                 const key = location.hash.slice(1);
                 if (key && key !== activeKey) loadChannel(key);
             });
 
-            // Initial render
             renderChannels();
             const hashKey = location.hash.slice(1);
             const initialKey = channels.some(c => c.key === hashKey) ? hashKey : 'skysport8nz';
