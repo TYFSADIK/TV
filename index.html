@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>TYF TV — Channel Ops</title>
 
-<meta name="description" content="TYF TV Channel Operations — a bright, bold broadcast control interface for live streaming channels. 179 channels, keyboard shortcuts, watchlist pinning.">
+<meta name="description" content="TYF TV Channel Operations — a bright, bold broadcast control interface for live streaming channels. 189 channels, keyboard shortcuts, watchlist pinning.">
 <meta name="keywords" content="TYF TV, live streaming, channel ops, broadcast control, ESPN, HBO, Sky Sports, live TV, streaming interface, channel directory, TV guide">
 <meta name="author" content="TYF TV">
-<meta name="generator" content="TYF Channel Ops v3.2">
+<meta name="generator" content="TYF Channel Ops v3.3">
 <meta name="application-name" content="TYF TV">
 <meta name="format-detection" content="telephone=no">
 <meta name="theme-color" content="#0D0D0D">
@@ -20,14 +20,16 @@
 <meta name="apple-mobile-web-app-title" content="TYF TV">
 <meta name="mobile-web-app-capable" content="yes">
 
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; frame-src https://ehgembxe.cfd; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none';">
+
 <meta property="og:type" content="website">
 <meta property="og:title" content="TYF TV — Channel Ops">
-<meta property="og:description" content="A bright, bold broadcast control interface. 179 live channels with keyboard shortcuts.">
+<meta property="og:description" content="A bright, bold broadcast control interface. 189 live channels with keyboard shortcuts.">
 <meta property="og:site_name" content="TYF TV">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="TYF TV — Channel Ops">
-<meta name="twitter:description" content="A bright, bold broadcast control interface. 179 live channels with keyboard shortcuts.">
+<meta name="twitter:description" content="A bright, bold broadcast control interface. 189 live channels with keyboard shortcuts.">
 
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiBmaWxsPSIjRkZFNTAwIi8+CiAgPHRleHQgeD0iMTYiIHk9IjI0IiBmb250LWZhbWlseT0iQXJpYWwgQmxhY2siIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSI5MDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiMwMDAiPlRWPC90ZXh0PgogIDxjaXJjbGUgY3g9IjYiIGN5PSI2IiByPSIzIiBmaWxsPSIjRkYwMDZFIi8+Cjwvc3ZnPg==">
 <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiBmaWxsPSIjRkZFNTAwIi8+CiAgPHRleHQgeD0iMTYiIHk9IjI0IiBmb250LWZhbWlseT0iQXJpYWwgQmxhY2siIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSI5MDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiMwMDAiPlRWPC90ZXh0PgogIDxjaXJjbGUgY3g9IjYiIGN5PSI2IiByPSIzIiBmaWxsPSIjRkYwMDZFIi8+Cjwvc3ZnPg==">
@@ -42,7 +44,7 @@
     --panel:     #FFFFFF;
     --ink:       #0D0D0D;
     --ink-soft:  #2A2A2A;
-    --muted:     #5C5C5C;   /* darkened for contrast on white (5.6:1) */
+    --muted:     #5C5C5C;
     --line:      #0D0D0D;
     --line-w:    4px;
 
@@ -96,7 +98,6 @@
   button { cursor: pointer; border: none; background: none; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
   ::selection { background: var(--accent-2); color: #fff; }
 
-  /* ===== Global keyboard focus (WCAG 2.4.7) ===== */
   :where(button, a, input, [tabindex]):focus-visible {
     outline: 4px solid var(--accent-3);
     outline-offset: 3px;
@@ -112,9 +113,6 @@
     overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
   }
 
-  /* ============================================================
-     MASTHEAD
-     ============================================================ */
   .app {
     display: flex;
     flex-direction: column;
@@ -221,9 +219,6 @@
   .mast-btn:active { transform: translate(1px, 1px); background: var(--accent-2); border-color: var(--accent-2); color: #fff; }
   .mast-btn svg { width: 24px; height: 24px; }
 
-  /* ============================================================
-     LAYOUT
-     ============================================================ */
   .layout { flex: 1; display: flex; min-height: 0; position: relative; }
 
   .directory {
@@ -327,7 +322,6 @@
 
   .channel-list { flex: 1; overflow-y: auto; overscroll-behavior: contain; }
 
-  /* ===== Channel row (button + separate pin button) ===== */
   .channel-row {
     display: grid;
     grid-template-columns: minmax(0, 1fr) 56px;
@@ -458,9 +452,6 @@
     text-transform: uppercase;
   }
 
-  /* ============================================================
-     STAGE
-     ============================================================ */
   .stage { flex: 1; min-width: 0; display: flex; flex-direction: column; padding: 24px; gap: 20px; min-height: 0; }
 
   .stage-player {
@@ -698,9 +689,6 @@
   }
   .stage-btn.watched { background: var(--accent); }
 
-  /* ============================================================
-     MODAL
-     ============================================================ */
   .modal-bg {
     position: fixed;
     inset: 0;
@@ -787,9 +775,6 @@
   .modal-close:hover { background: var(--accent-2); color: #fff; transform: translate(-3px, -3px); box-shadow: 9px 9px 0 var(--ink); }
   .modal-close:active { transform: translate(1px, 1px); box-shadow: 2px 2px 0 var(--ink); }
 
-  /* ============================================================
-     TOAST
-     ============================================================ */
   .toast-wrap {
     position: fixed;
     bottom: max(28px, env(safe-area-inset-bottom));
@@ -822,9 +807,6 @@
     to   { transform: translate(0,0) scale(1); opacity: 1; }
   }
 
-  /* ============================================================
-     RESPONSIVE
-     ============================================================ */
   @media (max-width: 1080px) {
     :root { --sidebar-w: 380px; }
     .brand { font-size: 40px; }
@@ -868,7 +850,6 @@
     .ref-grid .keys { margin-top: 8px; }
   }
 
-  /* Landscape phones / short viewports */
   @media (max-height: 520px) and (orientation: landscape) {
     :root { --masthead-h: 56px; }
     .brand { font-size: 26px; }
@@ -910,7 +891,7 @@
 
     <div class="status-block">
       <span class="live-dot" aria-hidden="true"></span>
-      <span class="live-count" id="liveCount">179</span>
+      <span class="live-count" id="liveCount">189</span>
       <span class="live-label">Live</span>
     </div>
 
@@ -946,8 +927,9 @@
     <main class="stage">
       <div class="stage-player" id="stagePlayer">
         <iframe id="player"
-                sandbox="allow-scripts allow-same-origin allow-presentation allow-popups"
+                sandbox="allow-scripts allow-same-origin allow-presentation"
                 allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+                referrerpolicy="no-referrer"
                 allowfullscreen
                 title="Stream player"></iframe>
 
@@ -1031,19 +1013,20 @@
   const STORAGE_KEY = 'tyf_watch_v4';
 
   const DATA = [
-    ['nhmzkzez-7568', '001', 'ABC', 'Broadcast'],
-    ['ha5xbugi-4793', '002', 'BBC America', 'Broadcast'],
-    ['evqaao47-3145', '003', 'BBC London', 'Broadcast'],
-    ['i1999ji2-4681', '004', 'BBC Two', 'Broadcast'],
-    ['ngmu9mth-729', '005', 'CBS', 'Broadcast'],
-    ['8x015102-1419', '006', 'CW', 'Broadcast'],
+    /* ===== 001–126: Primary channels (34 feeds refreshed) ===== */
+    ['nhmzkzez-4919', '001', 'ABC', 'Broadcast'],
+    ['ha5xbugi-9849', '002', 'BBC America', 'Broadcast'],
+    ['evqaao47-8438', '003', 'BBC London', 'Broadcast'],
+    ['i1999ji2-3715', '004', 'BBC Two', 'Broadcast'],
+    ['ngmu9mth-8322', '005', 'CBS', 'Broadcast'],
+    ['8x015102-2804', '006', 'CW', 'Broadcast'],
     ['bhg7rkug-7777', '007', 'FOX', 'Broadcast'],
     ['bdl7my34-9743', '008', 'NBC TV', 'Broadcast'],
     ['yfsb3z4h-7836', '009', 'Telemundo', 'Broadcast'],
     ['mi0i094s-9781', '010', 'WAPA America', 'Broadcast'],
-    ['aqwidk96-4980', '011', 'ACC Network', 'Sports'],
+    ['aqwidk96-52',   '011', 'ACC Network', 'Sports'],
     ['u36ftfcy-3958', '012', 'beIN Sports', 'Sports'],
-    ['tkdttav3-5992', '013', 'Big Ten Network', 'Sports'],
+    ['tkdttav3-4912', '013', 'Big Ten Network', 'Sports'],
     ['9c2jwr40-1729', '014', 'CBS Sports Network', 'Sports'],
     ['3dk8rxui-1944', '015', 'DAZN 1 Germany', 'Sports'],
     ['tnifspj6-2951', '016', 'DAZN 2 Germany', 'Sports'],
@@ -1053,20 +1036,20 @@
     ['o9bl8cai-6177', '020', 'ESPN', 'Sports'],
     ['6trsant7-4352', '021', 'ESPN Deportes', 'Sports'],
     ['33jhpzfr-4830', '022', 'ESPN 2', 'Sports'],
-    ['mftslez4-68', '023', 'ESPN News', 'Sports'],
+    ['mftslez4-68',   '023', 'ESPN News', 'Sports'],
     ['wqbwjjhf-7986', '024', 'ESPN U', 'Sports'],
     ['8p0wjr6t-1434', '025', 'FOX Deportes', 'Sports'],
     ['f4ijr4sl-7690', '026', 'FOX Sports 1', 'Sports'],
     ['p5562bwm-8569', '027', 'FOX Sports 2', 'Sports'],
-    ['imifneoj-860', '028', 'FOX Sports Cricket', 'Sports'],
-    ['caxq9d5g-578', '029', 'FOX Sports 502', 'Sports'],
+    ['imifneoj-860',  '028', 'FOX Sports Cricket', 'Sports'],
+    ['caxq9d5g-578',  '029', 'FOX Sports 502', 'Sports'],
     ['t1ilns5i-1829', '030', 'FOX Sports 503', 'Sports'],
-    ['m5ys2t2z-821', '031', 'FOX Sports 504', 'Sports'],
+    ['m5ys2t2z-821',  '031', 'FOX Sports 504', 'Sports'],
     ['9hg9rzzh-1271', '032', 'FOX Sports 506', 'Sports'],
     ['p8wos5q1-3287', '033', 'Golf Channel', 'Sports'],
-    ['kbrqp0d5-6898', '034', 'MLB Network', 'Sports'],
+    ['kbrqp0d5-506',  '034', 'MLB Network', 'Sports'],
     ['sv7a4sfc-6788', '035', 'MotoGP Channel', 'Sports'],
-    ['gzli3jta-212', '036', 'Movistar Deportes', 'Sports'],
+    ['gzli3jta-212',  '036', 'Movistar Deportes', 'Sports'],
     ['1gv2rhxc-4367', '037', 'Movistar Deportes 2', 'Sports'],
     ['vowrwhdn-4910', '038', 'Movistar LaLiga', 'Sports'],
     ['8tl2ksef-3812', '039', 'NBA TV', 'Sports'],
@@ -1074,7 +1057,7 @@
     ['03uxmg2p-7716', '041', 'NBC Sports Philadelphia', 'Sports'],
     ['a40czx8e-2958', '042', 'NFL Network', 'Sports'],
     ['kelcwql2-3899', '043', 'NHL Network', 'Sports'],
-    ['pi5dqsjd-270', '044', 'Polsat Sports 1', 'Sports'],
+    ['pi5dqsjd-270',  '044', 'Polsat Sports 1', 'Sports'],
     ['njs5pc6k-7397', '045', 'Polsat Sports 2', 'Sports'],
     ['r1ehwgde-8655', '046', 'Polsat Sport 3', 'Sports'],
     ['w3g66pt8-4530', '047', 'Premier Sports 1', 'Sports'],
@@ -1085,12 +1068,12 @@
     ['sl9un97j-7774', '052', 'Sky Sports 2', 'Sports'],
     ['ldfbs8gf-8299', '053', 'Sky Sports 3', 'Sports'],
     ['h0ryosf9-7532', '054', 'Sky Sports 4', 'Sports'],
-    ['32f9u4no-668', '055', 'Sky Sports 5', 'Sports'],
+    ['32f9u4no-668',  '055', 'Sky Sports 5', 'Sports'],
     ['wghuk9nx-6640', '056', 'Sky Sports 6', 'Sports'],
     ['dohvga1l-2422', '057', 'Sky Sports 7', 'Sports'],
     ['z6r4qhiz-5972', '058', 'Sky Sports 8', 'Sports'],
     ['kb1ngcei-5771', '059', 'Sky Sports 9', 'Sports'],
-    ['3ym6q5iy-6582', '060', 'Sky Sports Action', 'Sports'],
+    ['3ym6q5iy-8056', '060', 'Sky Sports Action', 'Sports'],
     ['kt8jus5e-4043', '061', 'Sky Sports Mix', 'Sports'],
     ['sawtuw4t-4613', '062', 'Sky Sports News', 'Sports'],
     ['toarnao3-4326', '063', 'Sky Sports Network', 'Sports'],
@@ -1098,70 +1081,70 @@
     ['pqd6qx47-5126', '065', 'Sky Sport UNO', 'Sports'],
     ['umicawgj-4507', '066', 'Sony Sports 2', 'Sports'],
     ['iit0e7qs-5317', '067', 'Sony Sports 3', 'Sports'],
-    ['oqq5c86g-895', '068', 'Sports TV 1', 'Sports'],
+    ['oqq5c86g-895',  '068', 'Sports TV 1', 'Sports'],
     ['6dw9r22a-2380', '069', 'Sports TV 2', 'Sports'],
     ['dbo09jwh-2703', '070', 'Sports TV 3', 'Sports'],
     ['t218wwwk-8038', '071', 'Sports TV 4', 'Sports'],
     ['twg31g84-6129', '072', 'Sports TV 5', 'Sports'],
-    ['e0lyrkhr-483', '073', 'TNT Sports', 'Sports'],
+    ['e0lyrkhr-483',  '073', 'TNT Sports', 'Sports'],
     ['it7aytqh-2813', '074', 'TNT Sports 2', 'Sports'],
-    ['bjarzxf9-176', '075', 'TNT Sport 3', 'Sports'],
+    ['bjarzxf9-176',  '075', 'TNT Sport 3', 'Sports'],
     ['3u2rfhmp-3915', '076', 'TNT Sport 4', 'Sports'],
     ['gq4ysifk-7631', '077', 'TyC Sports', 'Sports'],
-    ['c2g6ggzm-5385', '078', 'UFC Fight Pass 24/7', 'Sports'],
+    ['c2g6ggzm-6489', '078', 'UFC Fight Pass 24/7', 'Sports'],
     ['aataox5b-1814', '079', 'WAPA Deportes', 'Sports'],
-    ['spd8gpoh-8742', '080', 'Willow Cricket', 'Sports'],
-    ['q4o68v8x-8205', '081', 'AMC', 'Movies'],
-    ['ot03jqpb-7630', '082', 'HBO', 'Movies'],
-    ['g8rltva2-1104', '083', 'HBO Comedy', 'Movies'],
-    ['30owqrck-9479', '084', 'HBO Drama', 'Movies'],
+    ['spd8gpoh-5747', '080', 'Willow Cricket', 'Sports'],
+    ['q4o68v8x-3724', '081', 'AMC', 'Movies'],
+    ['ot03jqpb-5373', '082', 'HBO', 'Movies'],
+    ['g8rltva2-8723', '083', 'HBO Comedy', 'Movies'],
+    ['30owqrck-5744', '084', 'HBO Drama', 'Movies'],
     ['ym6y4zya-1730', '085', 'HBO Latino', 'Movies'],
     ['uionhys2-6762', '086', 'HBO Movies', 'Movies'],
     ['lbf8b9qx-2689', '087', 'Showtime', 'Movies'],
-    ['dutm6aqf-3072', '088', 'Showtime 2', 'Movies'],
-    ['5capzra0-5345', '089', 'Showtime Extreme', 'Movies'],
-    ['tqpk78xi-6584', '090', 'Showtime Family', 'Movies'],
-    ['1n90vg6y-5543', '091', 'Showtime Next', 'Movies'],
-    ['g4nghv2r-5290', '092', 'Showtime Women', 'Movies'],
+    ['dutm6aqf-8700', '088', 'Showtime 2', 'Movies'],
+    ['5capzra0-74',   '089', 'Showtime Extreme', 'Movies'],
+    ['tqpk78xi-5665', '090', 'Showtime Family', 'Movies'],
+    ['1n90vg6y-5167', '091', 'Showtime Next', 'Movies'],
+    ['g4nghv2r-2796', '092', 'Showtime Women', 'Movies'],
     ['yfxb31me-4178', '093', 'Starz', 'Movies'],
     ['7kshly84-8126', '094', 'Starz Cinema', 'Movies'],
     ['ps7hzjaz-8835', '095', 'Starz Comedy', 'Movies'],
     ['k4cl3go0-3182', '096', 'Starz Family', 'Movies'],
-    ['riwrf6tw-3972', '097', 'Boomerang', 'Kids'],
-    ['b3sfc94n-6739', '098', 'Cartoon Network', 'Kids'],
+    ['riwrf6tw-3161', '097', 'Boomerang', 'Kids'],
+    ['b3sfc94n-2470', '098', 'Cartoon Network', 'Kids'],
     ['x5g9w1kl-5942', '099', 'Disney Channel', 'Kids'],
     ['wjt6p7p4-6159', '100', 'Disney Junior', 'Kids'],
-    ['6czz80kp-1140', '101', 'Disney XD', 'Kids'],
-    ['mkq4q2a4-1602', '102', 'Nick Jr', 'Kids'],
-    ['81giyo7o-7603', '103', 'Nickelodeon', 'Kids'],
+    ['6czz80kp-5834', '101', 'Disney XD', 'Kids'],
+    ['mkq4q2a4-2600', '102', 'Nick Jr', 'Kids'],
+    ['81giyo7o-9910', '103', 'Nickelodeon', 'Kids'],
     ['yrqvb007-3778', '104', 'Nicktoons', 'Kids'],
     ['um03zyi2-8940', '105', 'Teen Nick', 'Kids'],
-    ['mpmo2rq6-4280', '106', 'A&E', 'Entertainment'],
+    ['mpmo2rq6-3523', '106', 'A&E', 'Entertainment'],
     ['yebuybr2-8135', '107', 'America Hero Challenge', 'Entertainment'],
-    ['vexvhyqi-78', '108', 'Bravo', 'Entertainment'],
+    ['vexvhyqi-78',   '108', 'Bravo', 'Entertainment'],
     ['vu4x7su7-8799', '109', 'Comedy Central', 'Entertainment'],
     ['fn3pa1gb-7081', '110', 'FX', 'Entertainment'],
     ['af5nt902-4990', '111', 'FXM', 'Entertainment'],
     ['8lysgd83-2886', '112', 'FXX', 'Entertainment'],
     ['cex5ctvv-8039', '113', 'Freeform', 'Entertainment'],
-    ['cnomxno0-6381', '114', 'Food Network', 'Entertainment'],
-    ['okj3w6e7-8473', '115', 'HGTV', 'Entertainment'],
+    ['cnomxno0-9757', '114', 'Food Network', 'Entertainment'],
+    ['okj3w6e7-6980', '115', 'HGTV', 'Entertainment'],
     ['2rqv6c3g-6007', '116', 'TBS', 'Entertainment'],
     ['2szx41ik-3061', '117', 'TNT', 'Entertainment'],
     ['qpwihhq2-9858', '118', 'Tru TV', 'Entertainment'],
-    ['ywroxe20-698', '119', 'Animal Planet', 'Documentary'],
-    ['5hibihrx-7208', '120', 'Discovery Channel', 'Documentary'],
+    ['ywroxe20-698',  '119', 'Animal Planet', 'Documentary'],
+    ['5hibihrx-2221', '120', 'Discovery Channel', 'Documentary'],
     ['yzfyc1yw-3521', '121', 'Discovery Family', 'Documentary'],
-    ['hgf4qg78-1819', '122', 'Discovery Turbo', 'Documentary'],
-    ['575o95wh-7819', '123', 'CNBC', 'News'],
+    ['hgf4qg78-2515', '122', 'Discovery Turbo', 'Documentary'],
+    ['575o95wh-3999', '123', 'CNBC', 'News'],
     ['izgv9di1-7536', '124', 'The Weather Channel', 'News'],
-    ['5evzdk49-4887', '125', 'AXS TV', 'Music'],
-    ['m7dxbt6s-2716', '126', 'MTV', 'Music'],
+    ['5evzdk49-429',  '125', 'AXS TV', 'Music'],
+    ['m7dxbt6s-9223', '126', 'MTV', 'Music'],
 
-    /* ===== Extra feeds — rename as you identify them ===== */
-    ['wmsxcqty-1214', '127', 'Extra 127', 'Extra'],
-    ['pmk4006b-5040', '128', 'Extra 128', 'Extra'],
-    ['2hiftim8-9805', '129', 'Extra 129', 'Extra'],
+    /* ===== 127–159: Extra feeds (13 refreshed in place) ===== */
+    ['wmsxcqty-2314', '127', 'Extra 127', 'Extra'],
+    ['pmk4006b-1907', '128', 'Extra 128', 'Extra'],
+    ['2hiftim8-981',  '129', 'Extra 129', 'Extra'],
     ['g8f0wpqc-7789', '130', 'Extra 130', 'Extra'],
     ['kckkoedv-8193', '131', 'Extra 131', 'Extra'],
     ['wqjlbwll-5770', '132', 'Extra 132', 'Extra'],
@@ -1172,485 +1155,433 @@
     ['fcxpeb2i-3339', '137', 'Extra 137', 'Extra'],
     ['gh9m7u89-3229', '138', 'Extra 138', 'Extra'],
     ['klk0j7p2-6063', '139', 'Extra 139', 'Extra'],
-    ['ketbclv0-832', '140', 'Extra 140', 'Extra'],
+    ['ketbclv0-832',  '140', 'Extra 140', 'Extra'],
     ['pxx4l615-6297', '141', 'Extra 141', 'Extra'],
     ['5u81h0on-9562', '142', 'Extra 142', 'Extra'],
     ['mmww1kss-9688', '143', 'Extra 143', 'Extra'],
     ['80ynbnuv-8421', '144', 'Extra 144', 'Extra'],
-    ['80ynbnuv-182', '145', 'Extra 145', 'Extra'],
+    ['80ynbnuv-182',  '145', 'Extra 145', 'Extra'],
     ['ltcqnszh-5863', '146', 'Extra 146', 'Extra'],
     ['ltcqnszh-4044', '147', 'Extra 147', 'Extra'],
-    ['9nllxks8-2505', '148', 'Extra 148', 'Extra'],
+    ['9nllxks8-9775', '148', 'Extra 148', 'Extra'],
     ['fudllnwj-8295', '149', 'Extra 149', 'Extra'],
     ['rcbsp9o1-7776', '150', 'Extra 150', 'Extra'],
-    ['t38chq57-696', '151', 'Extra 151', 'Extra'],
-    ['2uhz8pq7-6197', '152', 'Extra 152', 'Extra'],
-    ['mcop8cbp-9640', '153', 'Extra 153', 'Extra'],
-    ['mxh9xhyk-1009', '154', 'Extra 154', 'Extra'],
-    ['yeelvfrn-2393', '155', 'Extra 155', 'Extra'],
-    ['lj7sa6yf-8334', '156', 'Extra 156', 'Extra'],
-    ['aoeb77xq-5868', '157', 'Extra 157', 'Extra'],
-    ['bjpuxy0v-9846', '158', 'Extra 158', 'Extra'],
-    ['13knzaci-4282', '159', 'Extra 159', 'Extra'],
+    ['t38chq57-4170', '151', 'Extra 151', 'Extra'],
+    ['2uhz8pq7-1854', '152', 'Extra 152', 'Extra'],
+    ['mcop8cbp-7262', '153', 'Extra 153', 'Extra'],
+    ['mxh9xhyk-9642', '154', 'Extra 154', 'Extra'],
+    ['yeelvfrn-6750', '155', 'Extra 155', 'Extra'],
+    ['lj7sa6yf-8625', '156', 'Extra 156', 'Extra'],
+    ['aoeb77xq-8937', '157', 'Extra 157', 'Extra'],
+    ['bjpuxy0v-6922', '158', 'Extra 158', 'Extra'],
+    ['13knzaci-308',  '159', 'Extra 159', 'Extra'],
 
-    /* ===== Alternate feeds of known networks (prefix-matched, verify) ===== */
+    /* ===== 160–179: Legacy Alt feeds (from earlier batch — prune as confirmed dead) ===== */
     ['mpmo2rq6-4517', '160', 'A&E (Alt)', 'Entertainment'],
     ['mpmo2rq6-3522', '161', 'A&E (Alt 2)', 'Entertainment'],
     ['nhmzkzez-8046', '162', 'ABC (Alt)', 'Broadcast'],
-    ['aqwidk96-924', '163', 'ACC Network (Alt)', 'Sports'],
+    ['aqwidk96-924',  '163', 'ACC Network (Alt)', 'Sports'],
     ['q4o68v8x-1579', '164', 'AMC (Alt)', 'Movies'],
     ['q4o68v8x-7552', '165', 'AMC (Alt 2)', 'Movies'],
     ['5evzdk49-4399', '166', 'AXS TV (Alt)', 'Music'],
     ['ha5xbugi-9705', '167', 'BBC America (Alt)', 'Broadcast'],
-    ['evqaao47-196', '168', 'BBC London (Alt)', 'Broadcast'],
+    ['evqaao47-196',  '168', 'BBC London (Alt)', 'Broadcast'],
     ['i1999ji2-2771', '169', 'BBC Two (Alt)', 'Broadcast'],
     ['tkdttav3-1254', '170', 'Big Ten Network (Alt)', 'Sports'],
     ['riwrf6tw-6472', '171', 'Boomerang (Alt)', 'Kids'],
-    ['b3sfc94n-7728', '172', 'Cartoon Network (Alt)', 'Kids'],
-    ['8x015102-930', '173', 'CW (Alt)', 'Broadcast'],
+    ['b3sfc94n-7728', '172', 'Cartoon Network (Alt Legacy)', 'Kids'],
+    ['8x015102-930',  '173', 'CW (Alt)', 'Broadcast'],
     ['6czz80kp-8036', '174', 'Disney XD (Alt)', 'Kids'],
     ['cnomxno0-1155', '175', 'Food Network (Alt)', 'Entertainment'],
     ['c08i94j7-2606', '176', 'Racer Network (Alt)', 'Sports'],
     ['c2g6ggzm-1844', '177', 'UFC Fight Pass (Alt)', 'Sports'],
     ['m7dxbt6s-1436', '178', 'MTV (Alt)', 'Music'],
-    ['okj3w6e7-902', '179', 'HGTV (Alt)', 'Entertainment']
+    ['okj3w6e7-902',  '179', 'HGTV (Alt)', 'Entertainment'],
+
+    /* ===== 180–188: Brand-new feeds from this batch ===== */
+    ['jmbt4tra-5317', '180', 'Extra 180', 'Extra'],
+    ['epuze5e9-439',  '181', 'Extra 181', 'Extra'],
+    ['9z4cqq8i-7401', '182', 'Extra 182', 'Extra'],
+    ['8duxc8wz-2493', '183', 'Extra 183', 'Extra'],
+    ['adfmf81h-4029', '184', 'Extra 184', 'Extra'],
+    ['n1bvkqup-2642', '185', 'Extra 185', 'Extra'],
+    ['qfx4038p-8490', '186', 'Extra 186', 'Extra'],
+    ['bje2rae0-4797', '187', 'Extra 187', 'Extra'],
+    ['14quawd5-4263', '188', 'Extra 188', 'Extra'],
+
+    /* ===== 189: Cartoon Network second feed ===== */
+    ['b3sfc94n-9536', '189', 'Cartoon Network (Alt)', 'Kids']
   ];
 
-  const CHANNELS = DATA.map(([id, num, name, cat]) => ({ id, num, name, cat }));
-  const BY_ID = new Map(CHANNELS.map(c => [c.id, c]));
-  const BY_NUM = new Map(CHANNELS.map(c => [c.num, c]));
-  const CATEGORIES = ['All', 'Watchlist', 'Sports', 'Movies', 'Kids', 'Entertainment', 'Broadcast', 'Documentary', 'News', 'Music', 'Extra'];
-  const MOBILE_QUERY = '(max-width: 820px)';
+  const channels = DATA.map(([id, num, name, cat]) => ({ id, num, name, cat }));
+  const byId = new Map(channels.map(c => [c.id, c]));
 
-  function loadWatchlist() {
-    try {
-      const raw = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-      if (!Array.isArray(raw)) return new Set();
-      return new Set(raw.filter(id => BY_ID.has(id)));
-    } catch (e) {
-      return new Set();
-    }
-  }
-
-  function saveWatchlist() {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify([...state.watchlist]));
-    } catch (e) { /* storage unavailable — keep in-memory only */ }
-  }
-
-  const state = {
-    activeId: null,
-    lastId: null,
-    filter: 'All',
-    query: '',
-    watchlist: loadWatchlist(),
-    numBuffer: '',
-    numTimer: null,
-    loadTimer: null,
-    isConnecting: false
+  const $ = (sel) => document.querySelector(sel);
+  const el = {
+    liveCount: $('#liveCount'),
+    clock: $('#clock'),
+    searchInput: $('#searchInput'),
+    categoryStrip: $('#categoryStrip'),
+    channelList: $('#channelList'),
+    directory: $('#directory'),
+    btnDirectory: $('#btnDirectory'),
+    btnRef: $('#btnRef'),
+    player: $('#player'),
+    stageEmpty: $('#stageEmpty'),
+    stageConnecting: $('#stageConnecting'),
+    numOverlay: $('#numOverlay'),
+    numDisplay: $('#numDisplay'),
+    metaEyebrow: $('#metaEyebrow'),
+    metaNum: $('#metaNum'),
+    metaName: $('#metaName'),
+    metaCat: $('#metaCat'),
+    btnWatch: $('#btnWatch'),
+    btnWatchLabel: $('#btnWatchLabel'),
+    btnReconnect: $('#btnReconnect'),
+    btnFullscreen: $('#btnFullscreen'),
+    refModal: $('#refModal'),
+    refClose: $('#refClose'),
+    toastWrap: $('#toastWrap')
   };
 
-  const $ = (id) => document.getElementById(id);
-  const isMobile = () => window.matchMedia(MOBILE_QUERY).matches;
+  const CATEGORIES = ['All', 'Watchlist', 'Broadcast', 'Sports', 'Movies', 'Kids', 'News', 'Entertainment', 'Documentary', 'Music', 'Extra'];
 
-  /* ---------------- Toast ---------------- */
-  function toast(msg, isError) {
-    const el = document.createElement('div');
-    el.className = 'toast' + (isError ? ' error' : '');
-    if (isError) el.setAttribute('role', 'alert');
-    el.textContent = msg;
-    $('toastWrap').appendChild(el);
-    setTimeout(() => {
-      el.style.transition = 'opacity .2s, transform .2s';
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(8px) scale(.95)';
-      setTimeout(() => el.remove(), 220);
-    }, 2600);
+  let watchlist = new Set();
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) watchlist = new Set(JSON.parse(raw));
+  } catch (e) {}
+
+  let current = null;
+  let activeCategory = 'All';
+  let query = '';
+  let rows = new Map();
+  let numBuffer = '';
+  let numTimer = null;
+  let connectTimer = null;
+
+  function persistWatchlist() {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify([...watchlist])); } catch (e) {}
   }
 
-  /* ---------------- Filtering ---------------- */
-  function getFiltered() {
-    const q = state.query.trim().toLowerCase();
-    return CHANNELS.filter(c => {
-      if (state.filter === 'Watchlist') {
-        if (!state.watchlist.has(c.id)) return false;
-      } else if (state.filter !== 'All' && c.cat !== state.filter) {
-        return false;
+  function toast(msg, isError = false) {
+    const t = document.createElement('div');
+    t.className = 'toast' + (isError ? ' error' : '');
+    t.textContent = msg;
+    el.toastWrap.appendChild(t);
+    setTimeout(() => {
+      t.style.transition = 'opacity .3s ease, transform .3s ease';
+      t.style.opacity = '0';
+      t.style.transform = 'translate(20px, 20px)';
+      setTimeout(() => t.remove(), 320);
+    }, 2200);
+  }
+
+  function buildCategoryStrip() {
+    const counts = {};
+    channels.forEach(c => { counts[c.cat] = (counts[c.cat] || 0) + 1; });
+    counts.Watchlist = watchlist.size;
+
+    el.categoryStrip.innerHTML = '';
+    CATEGORIES.forEach(cat => {
+      const btn = document.createElement('button');
+      btn.className = 'cat-chip' + (cat === activeCategory ? ' active' : '');
+      btn.setAttribute('data-category', cat);
+      btn.setAttribute('aria-pressed', cat === activeCategory ? 'true' : 'false');
+      const n = cat === 'All' ? channels.length : (counts[cat] || 0);
+      const dot = document.createElement('span');
+      dot.className = 'cat-dot';
+      dot.dataset.cat = cat;
+      const label = document.createElement('span');
+      label.textContent = cat;
+      const num = document.createElement('span');
+      num.className = 'n';
+      num.textContent = n;
+      btn.append(dot, label, num);
+      btn.addEventListener('click', () => {
+        activeCategory = cat;
+        buildCategoryStrip();
+        renderList();
+      });
+      el.categoryStrip.appendChild(btn);
+    });
+  }
+
+  function filterChannels() {
+    return channels.filter(c => {
+      if (activeCategory === 'Watchlist' && !watchlist.has(c.id)) return false;
+      if (activeCategory !== 'All' && activeCategory !== 'Watchlist' && c.cat !== activeCategory) return false;
+      if (query) {
+        const q = query.toLowerCase();
+        return c.name.toLowerCase().includes(q) || c.num.includes(q);
       }
-      if (q && !(c.name.toLowerCase().includes(q) || c.num.includes(q))) return false;
       return true;
     });
   }
 
-  /* ---------------- Categories ---------------- */
-  function renderCategories() {
-    const counts = { All: CHANNELS.length, Watchlist: state.watchlist.size };
-    CHANNELS.forEach(c => { counts[c.cat] = (counts[c.cat] || 0) + 1; });
-
-    const strip = $('categoryStrip');
-    strip.innerHTML = CATEGORIES.map(cat => {
-      if (cat !== 'All' && cat !== 'Watchlist' && !counts[cat]) return '';
-      const dot = cat === 'All' ? '' : `<span class="cat-dot" data-cat="${cat}" aria-hidden="true"></span>`;
-      const active = state.filter === cat ? ' active' : '';
-      const pressed = state.filter === cat ? 'true' : 'false';
-      return `<button class="cat-chip${active}" data-cat="${cat}" aria-pressed="${pressed}">
-        ${dot}${cat}<span class="n">${counts[cat] || 0}</span>
-      </button>`;
-    }).join('');
-  }
-
-  /* ---------------- List ---------------- */
   function renderList() {
-    const list = $('channelList');
-    const filtered = getFiltered();
+    const filtered = filterChannels();
+    const frag = document.createDocumentFragment();
+    rows.clear();
+    el.channelList.innerHTML = '';
 
-    if (!filtered.length) {
-      list.innerHTML = state.filter === 'Watchlist'
-        ? '<div class="list-empty">No Pinned Channels<small>Tap ★ to pin a channel</small></div>'
-        : '<div class="list-empty">No Channels Found</div>';
+    if (filtered.length === 0) {
+      const empty = document.createElement('div');
+      empty.className = 'list-empty';
+      empty.innerHTML = 'No channels<small>Try another search or category</small>';
+      el.channelList.appendChild(empty);
       return;
     }
 
-    list.innerHTML = filtered.map(c => {
-      const active = c.id === state.activeId ? ' active' : '';
-      const pinned = state.watchlist.has(c.id);
-      return `<div class="channel-row${active}" data-id="${c.id}" role="listitem">
-        <button class="channel" data-id="${c.id}" aria-label="Watch ${c.name}, channel ${c.num}">
-          <span class="ch-num">${c.num}</span>
-          <span class="ch-body">
-            <span class="ch-name">${c.name}</span>
-            <span class="ch-cat" data-cat="${c.cat}">${c.cat}</span>
-          </span>
-        </button>
-        <button class="ch-pin${pinned ? ' pinned' : ''}" data-pin="${c.id}"
-                aria-pressed="${pinned ? 'true' : 'false'}"
-                aria-label="${pinned ? 'Unpin' : 'Pin'} ${c.name}">★</button>
-      </div>`;
-    }).join('');
-  }
+    filtered.forEach(c => {
+      const row = document.createElement('div');
+      row.className = 'channel-row';
+      row.setAttribute('role', 'listitem');
+      if (current && current.id === c.id) row.classList.add('active');
 
-  function refreshActive() {
-    document.querySelectorAll('.channel-row').forEach(el => {
-      el.classList.toggle('active', el.dataset.id === state.activeId);
+      const btn = document.createElement('button');
+      btn.className = 'channel';
+      btn.dataset.id = c.id;
+      btn.setAttribute('aria-label', `Channel ${c.num}, ${c.name}`);
+      btn.innerHTML = `
+        <span class="ch-num">${c.num}</span>
+        <span class="ch-body">
+          <span class="ch-name">${c.name}</span>
+          <span class="ch-cat" data-cat="${c.cat}">${c.cat}</span>
+        </span>
+      `;
+      btn.addEventListener('click', () => selectChannel(c.id));
+
+      const pin = document.createElement('button');
+      pin.className = 'ch-pin' + (watchlist.has(c.id) ? ' pinned' : '');
+      pin.innerHTML = '★';
+      pin.setAttribute('aria-label', watchlist.has(c.id) ? `Unpin ${c.name}` : `Pin ${c.name}`);
+      pin.setAttribute('aria-pressed', watchlist.has(c.id) ? 'true' : 'false');
+      pin.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleWatch(c.id);
+      });
+
+      row.appendChild(btn);
+      row.appendChild(pin);
+      rows.set(c.id, row);
+      frag.appendChild(row);
     });
+
+    el.channelList.appendChild(frag);
   }
 
-  function updatePinUI(id) {
-    const btn = document.querySelector(`.ch-pin[data-pin="${id}"]`);
-    if (!btn) return;
-    const pinned = state.watchlist.has(id);
-    btn.classList.toggle('pinned', pinned);
-    btn.setAttribute('aria-pressed', pinned ? 'true' : 'false');
-    const c = BY_ID.get(id);
-    if (c) btn.setAttribute('aria-label', (pinned ? 'Unpin ' : 'Pin ') + c.name);
+  function toggleWatch(id) {
+    const c = channels.find(x => x.id === id);
+    if (!c) return;
+    if (watchlist.has(id)) {
+      watchlist.delete(id);
+      toast(`Unpinned ${c.name}`);
+    } else {
+      watchlist.add(id);
+      toast(`Pinned ${c.name}`);
+    }
+    persistWatchlist();
+    buildCategoryStrip();
+    renderList();
+    if (current && current.id === id) updateWatchButton();
   }
 
-  function scrollActiveIntoView() {
-    const el = document.querySelector('.channel-row.active');
-    if (el) el.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+  function updateWatchButton() {
+    if (!current) return;
+    const pinned = watchlist.has(current.id);
+    el.btnWatch.classList.toggle('watched', pinned);
+    el.btnWatch.setAttribute('aria-pressed', pinned ? 'true' : 'false');
+    el.btnWatchLabel.textContent = pinned ? 'Watching' : 'Watch';
   }
 
-  /* ---------------- Watchlist ---------------- */
-  function updateStageButtons() {
-    const btn = $('btnWatch');
-    const label = $('btnWatchLabel');
-    if (!state.activeId) {
-      btn.classList.remove('watched');
-      btn.setAttribute('aria-pressed', 'false');
-      label.textContent = 'Watch';
+  function selectChannel(id) {
+    const c = channels.find(x => x.id === id);
+    if (!c) return;
+
+    if (current && current.id === id) {
+      reloadCurrent();
       return;
     }
-    const pinned = state.watchlist.has(state.activeId);
-    btn.classList.toggle('watched', pinned);
-    btn.setAttribute('aria-pressed', pinned ? 'true' : 'false');
-    label.textContent = pinned ? 'Pinned' : 'Watch';
-  }
 
-  function togglePin(id) {
-    const c = BY_ID.get(id);
-    if (!c) return;
-    let pinned;
-    if (state.watchlist.has(id)) {
-      state.watchlist.delete(id);
-      pinned = false;
-      toast(c.name + ' unpinned');
-    } else {
-      state.watchlist.add(id);
-      pinned = true;
-      toast(c.name + ' pinned ★');
+    current = c;
+
+    el.metaEyebrow.textContent = 'Now Playing';
+    el.metaNum.textContent = c.num;
+    el.metaName.textContent = c.name;
+    el.metaCat.textContent = c.cat;
+    el.metaCat.style.display = 'inline-block';
+
+    el.btnWatch.disabled = false;
+    el.btnReconnect.disabled = false;
+    el.btnFullscreen.disabled = false;
+
+    updateWatchButton();
+
+    el.stageEmpty.classList.add('hidden');
+    el.stageConnecting.classList.add('visible');
+
+    clearTimeout(connectTimer);
+    connectTimer = setTimeout(() => {
+      el.stageConnecting.classList.remove('visible');
+    }, 900);
+
+    el.player.src = EMBED_BASE + c.id;
+
+    rows.forEach((row, rid) => {
+      row.classList.toggle('active', rid === id);
+    });
+
+    if (window.innerWidth <= 820) {
+      el.directory.classList.add('collapsed');
+      el.btnDirectory.setAttribute('aria-expanded', 'false');
     }
-    saveWatchlist();
-    updatePinUI(id);
-    renderCategories();
-    if (state.filter === 'Watchlist') renderList();
-    if (state.activeId === id) updateStageButtons();
-    else if (pinned === false && state.activeId === id) updateStageButtons();
+
+    if (location.hash !== '#' + c.num) {
+      history.replaceState(null, '', '#' + c.num);
+    }
   }
 
-  /* ---------------- Directory panel ---------------- */
-  function setDirectoryCollapsed(collapsed) {
-    const dir = $('directory');
-    dir.classList.toggle('collapsed', collapsed);
-    dir.inert = collapsed;
-    $('btnDirectory').setAttribute('aria-expanded', collapsed ? 'false' : 'true');
+  function reloadCurrent() {
+    if (!current) return;
+    el.stageConnecting.classList.add('visible');
+    clearTimeout(connectTimer);
+    connectTimer = setTimeout(() => {
+      el.stageConnecting.classList.remove('visible');
+    }, 900);
+    el.player.src = EMBED_BASE + current.id;
+    toast(`Reloaded ${current.name}`);
   }
 
-  /* ---------------- Player ---------------- */
-  function selectChannel(id) {
-    const c = BY_ID.get(id);
-    if (!c) return;
-
-    if (state.activeId === id) { reconnect(); return; }
-
-    if (state.activeId) state.lastId = state.activeId;
-    state.activeId = id;
-
-    refreshActive();
-    scrollActiveIntoView();
-
-    $('stageEmpty').classList.add('hidden');
-    $('stageConnecting').classList.add('visible');
-    $('stageConnecting').setAttribute('aria-hidden', 'false');
-
-    $('metaName').textContent = c.name;
-    $('metaNum').textContent = 'CH ' + c.num;
-    $('metaCat').textContent = c.cat;
-    $('metaCat').style.display = '';
-    $('metaEyebrow').textContent = 'Now Playing';
-
-    $('btnWatch').disabled = false;
-    $('btnReconnect').disabled = false;
-    $('btnFullscreen').disabled = false;
-    updateStageButtons();
-
-    state.isConnecting = true;
-    $('player').src = EMBED_BASE + c.id;
-
-    clearTimeout(state.loadTimer);
-    state.loadTimer = setTimeout(() => {
-      if (state.isConnecting && state.activeId === id) {
-        $('stageConnecting').classList.remove('visible');
-        $('stageConnecting').setAttribute('aria-hidden', 'true');
-        toast(c.name + ' — no response', true);
-      }
-    }, 12000);
-
-    try { history.replaceState(null, '', '#' + c.id); } catch (e) { /* ignore */ }
-
-    /* Mobile: reveal the player after the user picks a channel */
-    if (isMobile()) setDirectoryCollapsed(true);
-  }
-
-  function reconnect() {
-    if (!state.activeId) return;
-    const c = BY_ID.get(state.activeId);
-    if (!c) return;
-    state.isConnecting = true;
-    $('stageConnecting').classList.add('visible');
-    $('stageConnecting').setAttribute('aria-hidden', 'false');
-    $('player').src = EMBED_BASE + c.id + '?_=' + Date.now();
-    clearTimeout(state.loadTimer);
-    state.loadTimer = setTimeout(() => {
-      if (state.isConnecting) {
-        $('stageConnecting').classList.remove('visible');
-        $('stageConnecting').setAttribute('aria-hidden', 'true');
-      }
-    }, 12000);
-    toast('Reloading ' + c.name);
-  }
-
-  function clearChannel() {
-    if (!state.activeId) return;
-    state.lastId = state.activeId;
-    state.activeId = null;
-    $('player').removeAttribute('src');
-    $('stageEmpty').classList.remove('hidden');
-    $('stageConnecting').classList.remove('visible');
-    $('stageConnecting').setAttribute('aria-hidden', 'true');
-    $('metaName').textContent = 'No Channel Selected';
-    $('metaNum').textContent = '—';
-    $('metaCat').style.display = 'none';
-    $('metaEyebrow').textContent = 'Now Playing';
-    $('btnWatch').disabled = true;
-    $('btnReconnect').disabled = true;
-    $('btnFullscreen').disabled = true;
-    updateStageButtons();
-    refreshActive();
-    try { history.replaceState(null, '', location.pathname + location.search); } catch (e) { /* ignore */ }
-  }
-
-  function step(dir) {
-    const list = getFiltered();
-    if (!list.length) return;
-    if (!state.activeId) { selectChannel(list[0].id); return; }
-    const i = list.findIndex(c => c.id === state.activeId);
-    if (i < 0) { selectChannel(list[0].id); return; }
-    const next = (i + dir + list.length) % list.length;
+  function stepChannel(dir) {
+    if (!current) {
+      const first = filterChannels()[0];
+      if (first) selectChannel(first.id);
+      return;
+    }
+    const list = filterChannels();
+    const idx = list.findIndex(c => c.id === current.id);
+    if (idx === -1) {
+      if (list[0]) selectChannel(list[0].id);
+      return;
+    }
+    const next = (idx + dir + list.length) % list.length;
     selectChannel(list[next].id);
   }
 
-  function toggleFullscreen() {
-    if (document.fullscreenElement) {
-      document.exitFullscreen().catch(() => {});
+  function jumpByNumber() {
+    if (numBuffer.length === 0) return;
+    const target = numBuffer.padStart(3, '0').slice(-3);
+    const found = channels.find(c => c.num === target);
+    numBuffer = '';
+    el.numOverlay.classList.remove('visible');
+    el.numDisplay.textContent = '_';
+    if (found) {
+      selectChannel(found.id);
     } else {
-      const target = $('stagePlayer');
-      if (target.requestFullscreen) target.requestFullscreen().catch(() => {});
+      toast(`No channel ${target}`, true);
     }
   }
 
-  /* ---------------- Number entry ---------------- */
   function handleDigit(d) {
-    state.numBuffer += d;
-    if (state.numBuffer.length > 3) state.numBuffer = state.numBuffer.slice(-3);
-    $('numDisplay').textContent = state.numBuffer;
-    $('numOverlay').classList.add('visible');
-    $('numOverlay').setAttribute('aria-hidden', 'false');
-    clearTimeout(state.numTimer);
-    state.numTimer = setTimeout(submitNumber, 1200);
+    numBuffer += d;
+    el.numDisplay.textContent = numBuffer;
+    el.numOverlay.classList.add('visible');
+    clearTimeout(numTimer);
+    numTimer = setTimeout(jumpByNumber, 1500);
   }
 
-  function cancelNumber() {
-    state.numBuffer = '';
-    clearTimeout(state.numTimer);
-    $('numOverlay').classList.remove('visible');
-    $('numOverlay').setAttribute('aria-hidden', 'true');
+  function closeModal() {
+    el.refModal.classList.remove('visible');
+    el.refModal.setAttribute('aria-hidden', 'true');
   }
 
-  function submitNumber() {
-    const buf = state.numBuffer;
-    cancelNumber();
-    if (!buf) return;
-    const num = buf.padStart(3, '0');
-    const c = BY_NUM.get(num);
-    if (c) selectChannel(c.id);
-    else toast('Channel ' + num + ' not found', true);
+  function openModal() {
+    el.refModal.classList.add('visible');
+    el.refModal.setAttribute('aria-hidden', 'false');
   }
 
-  /* ---------------- Modal ---------------- */
-  let modalReturnFocus = null;
-
-  function openRef() {
-    modalReturnFocus = document.activeElement;
-    $('refModal').classList.add('visible');
-    $('refModal').setAttribute('aria-hidden', 'false');
-    $('app').inert = true;
-    $('refClose').focus();
+  function toggleDirectory() {
+    const collapsed = el.directory.classList.toggle('collapsed');
+    el.btnDirectory.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
   }
 
-  function closeRef() {
-    $('refModal').classList.remove('visible');
-    $('refModal').setAttribute('aria-hidden', 'true');
-    $('app').inert = false;
-    if (modalReturnFocus && typeof modalReturnFocus.focus === 'function') modalReturnFocus.focus();
-    modalReturnFocus = null;
+  function toggleFullscreen() {
+    const stage = el.player.closest('.stage-player');
+    if (!document.fullscreenElement) {
+      (stage.requestFullscreen || stage.webkitRequestFullscreen || stage.msRequestFullscreen || (() => toast('Fullscreen not supported', true))).call(stage);
+    } else {
+      (document.exitFullscreen || document.webkitExitFullscreen || document.msExitFullscreen || (() => {})).call(document);
+    }
   }
 
-  /* ---------------- Events: delegated ---------------- */
-  $('channelList').addEventListener('click', (e) => {
-    const pin = e.target.closest('.ch-pin');
-    if (pin) { togglePin(pin.dataset.pin); return; }
-    const row = e.target.closest('.channel-row');
-    if (row) selectChannel(row.dataset.id);
-  });
+  function tickClock() {
+    const d = new Date();
+    el.clock.textContent = [d.getHours(), d.getMinutes(), d.getSeconds()].map(n => String(n).padStart(2, '0')).join(':');
+  }
 
-  $('categoryStrip').addEventListener('click', (e) => {
-    const chip = e.target.closest('.cat-chip');
-    if (!chip) return;
-    state.filter = chip.dataset.cat;
-    renderCategories();
+  el.searchInput.addEventListener('input', (e) => {
+    query = e.target.value.trim();
     renderList();
   });
 
-  let searchDebounce = null;
-  $('searchInput').addEventListener('input', (e) => {
-    state.query = e.target.value;
-    clearTimeout(searchDebounce);
-    searchDebounce = setTimeout(renderList, 120);
-  });
+  el.btnDirectory.addEventListener('click', toggleDirectory);
+  el.btnRef.addEventListener('click', openModal);
+  el.refClose.addEventListener('click', closeModal);
+  el.refModal.addEventListener('click', (e) => { if (e.target === el.refModal) closeModal(); });
 
-  $('btnDirectory').addEventListener('click', () => {
-    setDirectoryCollapsed(!$('directory').classList.contains('collapsed'));
-  });
-  $('btnRef').addEventListener('click', openRef);
-  $('refClose').addEventListener('click', closeRef);
-  $('refModal').addEventListener('click', (e) => { if (e.target === $('refModal')) closeRef(); });
+  el.btnWatch.addEventListener('click', () => { if (current) toggleWatch(current.id); });
+  el.btnReconnect.addEventListener('click', reloadCurrent);
+  el.btnFullscreen.addEventListener('click', toggleFullscreen);
 
-  $('btnWatch').addEventListener('click', () => { if (state.activeId) togglePin(state.activeId); });
-  $('btnReconnect').addEventListener('click', reconnect);
-  $('btnFullscreen').addEventListener('click', toggleFullscreen);
-  $('stagePlayer').addEventListener('dblclick', toggleFullscreen);
-  $('numOverlay').addEventListener('click', cancelNumber);
-
-  $('player').addEventListener('load', () => {
-    if (!state.activeId) return;
-    state.isConnecting = false;
-    clearTimeout(state.loadTimer);
-    $('stageConnecting').classList.remove('visible');
-    $('stageConnecting').setAttribute('aria-hidden', 'true');
-  });
-
-  /* ---------------- Keyboard ---------------- */
   document.addEventListener('keydown', (e) => {
-    if (e.ctrlKey || e.metaKey || e.altKey) return;
-
-    if ($('refModal').classList.contains('visible')) {
-      if (e.key === 'Escape') { e.preventDefault(); closeRef(); }
+    const tag = document.activeElement?.tagName;
+    if (tag === 'INPUT' || tag === 'TEXTAREA') {
+      if (e.key === 'Escape') document.activeElement.blur();
       return;
     }
-
-    const tag = (e.target.tagName || '').toLowerCase();
-    if (tag === 'input' || tag === 'textarea') {
-      if (e.key === 'Escape') { e.target.blur(); e.preventDefault(); }
+    if (el.refModal.classList.contains('visible')) {
+      if (e.key === 'Escape') closeModal();
       return;
     }
 
     if (e.key >= '0' && e.key <= '9') { e.preventDefault(); handleDigit(e.key); return; }
 
     switch (e.key) {
-      case 'ArrowDown': case 'ArrowRight': e.preventDefault(); step(1); break;
-      case 'ArrowUp':   case 'ArrowLeft':  e.preventDefault(); step(-1); break;
-      case 'r': case 'R': reconnect(); break;
-      case 'f': case 'F': if (state.activeId) toggleFullscreen(); break;
-      case 'w': case 'W': if (state.activeId) togglePin(state.activeId); break;
-      case 'm': case 'M': setDirectoryCollapsed(!$('directory').classList.contains('collapsed')); break;
-      case '/': e.preventDefault(); $('searchInput').focus(); $('searchInput').select(); break;
-      case '?': e.preventDefault(); openRef(); break;
+      case 'ArrowDown':
+      case 'ArrowRight':
+        e.preventDefault(); stepChannel(1); break;
+      case 'ArrowUp':
+      case 'ArrowLeft':
+        e.preventDefault(); stepChannel(-1); break;
+      case 'r': case 'R': reloadCurrent(); break;
+      case 'f': case 'F': toggleFullscreen(); break;
+      case 'w': case 'W': if (current) toggleWatch(current.id); break;
+      case 'm': case 'M': toggleDirectory(); break;
+      case '/': e.preventDefault(); el.searchInput.focus(); break;
+      case '?': openModal(); break;
       case 'Escape':
-        if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
-        else if ($('numOverlay').classList.contains('visible')) cancelNumber();
-        else clearChannel();
+        if (numBuffer) { numBuffer = ''; el.numOverlay.classList.remove('visible'); el.numDisplay.textContent = '_'; }
+        else { closeModal(); }
         break;
     }
   });
 
-  /* ---------------- Hash routing ---------------- */
-  window.addEventListener('hashchange', () => {
-    const id = location.hash.slice(1);
-    if (!id) return;
-    if (id !== state.activeId && BY_ID.has(id)) selectChannel(id);
-  });
+  function init() {
+    el.liveCount.textContent = channels.length;
+    buildCategoryStrip();
+    renderList();
+    tickClock();
+    setInterval(tickClock, 1000);
 
-  /* ---------------- Clock ---------------- */
-  function tickClock() {
-    const d = new Date();
-    $('clock').textContent = [d.getHours(), d.getMinutes(), d.getSeconds()]
-      .map(n => String(n).padStart(2, '0')).join(':');
+    if (location.hash) {
+      const num = location.hash.slice(1).padStart(3, '0');
+      const found = channels.find(c => c.num === num);
+      if (found) selectChannel(found.id);
+    }
   }
-  tickClock();
-  setInterval(tickClock, 1000);
 
-  /* ---------------- Boot ---------------- */
-  renderCategories();
-  renderList();
-  $('liveCount').textContent = CHANNELS.length;
-  setDirectoryCollapsed(false);
-
-  const hashId = location.hash.slice(1);
-  if (hashId && BY_ID.has(hashId)) selectChannel(hashId);
-
-  console.log('%cTYF TV %cready — ' + CHANNELS.length + ' channels',
-    'color:#FF006E;font-weight:900;font-size:14px;',
-    'color:#0D0D0D;font-weight:700;');
+  init();
 })();
 </script>
 </body>
