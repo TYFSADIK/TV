@@ -8,28 +8,12 @@
 <meta name="description" content="TYF TV Channel Operations — a bright, bold broadcast control interface for live streaming channels. 189 channels, keyboard shortcuts, watchlist pinning.">
 <meta name="keywords" content="TYF TV, live streaming, channel ops, broadcast control, ESPN, HBO, Sky Sports, live TV, streaming interface, channel directory, TV guide">
 <meta name="author" content="TYF TV">
-<meta name="generator" content="TYF Channel Ops v3.3">
-<meta name="application-name" content="TYF TV">
-<meta name="format-detection" content="telephone=no">
 <meta name="theme-color" content="#0D0D0D">
 <meta name="color-scheme" content="light">
-<meta name="robots" content="index, follow, max-image-preview:large">
-<meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="TYF TV">
 <meta name="mobile-web-app-capable" content="yes">
-
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; frame-src https://ehgembxe.cfd; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none';">
-
-<meta property="og:type" content="website">
-<meta property="og:title" content="TYF TV — Channel Ops">
-<meta property="og:description" content="A bright, bold broadcast control interface. 189 live channels with keyboard shortcuts.">
-<meta property="og:site_name" content="TYF TV">
-<meta property="og:locale" content="en_US">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="TYF TV — Channel Ops">
-<meta name="twitter:description" content="A bright, bold broadcast control interface. 189 live channels with keyboard shortcuts.">
 
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiBmaWxsPSIjRkZFNTAwIi8+CiAgPHRleHQgeD0iMTYiIHk9IjI0IiBmb250LWZhbWlseT0iQXJpYWwgQmxhY2siIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSI5MDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiMwMDAiPlRWPC90ZXh0PgogIDxjaXJjbGUgY3g9IjYiIGN5PSI2IiByPSIzIiBmaWxsPSIjRkYwMDZFIi8+Cjwvc3ZnPg==">
 <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiBmaWxsPSIjRkZFNTAwIi8+CiAgPHRleHQgeD0iMTYiIHk9IjI0IiBmb250LWZhbWlseT0iQXJpYWwgQmxhY2siIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSI5MDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiMwMDAiPlRWPC90ZXh0PgogIDxjaXJjbGUgY3g9IjYiIGN5PSI2IiByPSIzIiBmaWxsPSIjRkYwMDZFIi8+Cjwvc3ZnPg==">
@@ -926,11 +910,8 @@
 
     <main class="stage">
       <div class="stage-player" id="stagePlayer">
-        <iframe id="player"
-                allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
-                referrerpolicy="no-referrer"
-                allowfullscreen
-                title="Stream player"></iframe>
+        <!-- Barebones iframe to maximize compatibility and remove ALL sandboxing/restrictions -->
+        <iframe id="player" allowfullscreen title="Stream player"></iframe>
 
         <div class="stage-empty" id="stageEmpty">
           <div class="stage-empty-mark">TYF<span>·</span>TV</div>
@@ -1008,11 +989,12 @@
 (function () {
   'use strict';
 
+  // Cache-buster appended to force new stream URL and prevent old cached errors
   const EMBED_BASE = 'https://ehgembxe.cfd/';
   const STORAGE_KEY = 'tyf_watch_v4';
 
   const DATA = [
-    /* ===== 001–126: Primary channels (34 feeds refreshed) ===== */
+    /* ===== 001–126: Primary channels ===== */
     ['nhmzkzez-4919', '001', 'ABC', 'Broadcast'],
     ['ha5xbugi-9849', '002', 'BBC America', 'Broadcast'],
     ['evqaao47-8438', '003', 'BBC London', 'Broadcast'],
@@ -1140,7 +1122,7 @@
     ['5evzdk49-429',  '125', 'AXS TV', 'Music'],
     ['m7dxbt6s-9223', '126', 'MTV', 'Music'],
 
-    /* ===== 127–159: Extra feeds (13 refreshed in place) ===== */
+    /* ===== 127–159: Extra feeds ===== */
     ['wmsxcqty-2314', '127', 'Extra 127', 'Extra'],
     ['pmk4006b-1907', '128', 'Extra 128', 'Extra'],
     ['2hiftim8-981',  '129', 'Extra 129', 'Extra'],
@@ -1175,7 +1157,7 @@
     ['bjpuxy0v-6922', '158', 'Extra 158', 'Extra'],
     ['13knzaci-308',  '159', 'Extra 159', 'Extra'],
 
-    /* ===== 160–179: Legacy Alt feeds (from earlier batch — prune as confirmed dead) ===== */
+    /* ===== 160–179: Legacy Alt feeds ===== */
     ['mpmo2rq6-4517', '160', 'A&E (Alt)', 'Entertainment'],
     ['mpmo2rq6-3522', '161', 'A&E (Alt 2)', 'Entertainment'],
     ['nhmzkzez-8046', '162', 'ABC (Alt)', 'Broadcast'],
@@ -1197,7 +1179,7 @@
     ['m7dxbt6s-1436', '178', 'MTV (Alt)', 'Music'],
     ['okj3w6e7-902',  '179', 'HGTV (Alt)', 'Entertainment'],
 
-    /* ===== 180–188: Brand-new feeds from this batch ===== */
+    /* ===== 180–188: Brand-new feeds ===== */
     ['jmbt4tra-5317', '180', 'Extra 180', 'Extra'],
     ['epuze5e9-439',  '181', 'Extra 181', 'Extra'],
     ['9z4cqq8i-7401', '182', 'Extra 182', 'Extra'],
@@ -1425,7 +1407,8 @@
       el.stageConnecting.classList.remove('visible');
     }, 900);
 
-    el.player.src = EMBED_BASE + c.id;
+    // Cache-buster included to prevent old player cache issues
+    el.player.src = EMBED_BASE + c.id + '?v=2';
 
     rows.forEach((row, rid) => {
       row.classList.toggle('active', rid === id);
@@ -1448,7 +1431,7 @@
     connectTimer = setTimeout(() => {
       el.stageConnecting.classList.remove('visible');
     }, 900);
-    el.player.src = EMBED_BASE + current.id;
+    el.player.src = EMBED_BASE + current.id + '?v=2';
     toast(`Reloaded ${current.name}`);
   }
 
